@@ -28,6 +28,7 @@
             <url-pattern>*.webm</url-pattern>
         </servlet-mapping>
 
+        <!--
         <error-page>
             <error-code>404</error-code>
             <location>/error/notFoundErrorPage.jsp</location>
@@ -36,6 +37,7 @@
             <exception-type>java.lang.Exception</exception-type>
             <location>/error/errorPage.jsp</location>
         </error-page>
+        -->
 
         <filter>
             <filter-name>SetCharEncoding</filter-name>

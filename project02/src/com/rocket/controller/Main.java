@@ -8,14 +8,15 @@ public class Main extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String user = "몬스타엑스";
+        /*
+        HttpSession session = request.getSession();
+        session.setAttribute("sid", "lee");
+        */
 
         ServletContext application = request.getServletContext();
         String realPath = request.getSession().getServletContext().getRealPath("/");
 
-        application.setAttribute("realPath", realPath);
-
-        request.setAttribute("user", user);
+        application.setAttribute("realPath", realPath);  //${realPath }
 
         RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/index.jsp");
         view.forward(request, response);

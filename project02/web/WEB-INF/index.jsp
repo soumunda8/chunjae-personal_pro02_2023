@@ -5,11 +5,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>$Title$</title>
+    <title>RocketShop</title>
+    <jsp:include page="../layout/head.jsp" />
+    <link rel="stylesheet" href="${path }/css/main.css">
 </head>
 <body>
-    <a href="${path }/joinTerm.do">회원약관동의</a>
+<div class="container">
+    <jsp:include page="../layout/header.jsp" />
+    <div class="contents">
+
+        <p style="color:darkred;font-weight:700;"><i class="fas fa-exclamation-circle"></i> 아이디나 비밀번호가 맞지 않습니다.</p>
+    </div>
+</div>
+<jsp:include page="../layout/footer.jsp" />
 </body>
 </html>

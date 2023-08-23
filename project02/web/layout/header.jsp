@@ -1,67 +1,66 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%
-    String sid = session.getAttribute("sid")!=null ? (String) session.getAttribute("sid") : null;
-%>
-<div class="hd_wrap hd_top">
-    <nav class="tnb inner">
-        <ul class="menu clearfix">
-            <li class="home none"><a href="<%=path %>/"><i class="fas fa-home"></i>Plus&Plus Edu</a></li>
-            <% if(sid != null) { %>
-            <li><a href="<%=path %>/member/logoutPro.jsp"><i class="fas fa-sign-out-alt"></i>로그아웃</a></li>
-            <% if(sid.equals("admin")) { %>
-            <li class="none"><a href="<%=path %>/admin/memberList.jsp">관리자페이지</a></li>
-            <% } else { %>
-            <li class="none"><a href="<%=path %>/member/mypage.jsp"><i class="fas fa-home"></i>마이페이지</a></li>
-            <% } %>
-            <% } else { %>
-            <li><a href="<%=path %>/member/term.jsp"><i class="fas fa-user-plus"></i>회원가입</a></li>
-            <li class="none"><a href="<%=path %>/member/login.jsp"><i class="fas fa-sign-in-alt"></i>로그인</a></li>
-            <% } %>
-        </ul>
-    </nav>
-</div>
-<div class="hd_wrap hd_con">
-    <div class="inner">
-        <a href="<%=path %>/" class="logo"><img src="<%=path %>/image/common/logo.png" alt="플러스앤플러스에듀 로고"><p><span class="mainCol">Plus</span> & <span class="subCol">Plus</span> Edu</p></a>
-        <nav class="gnb">
-            <ul class="menu">
-                <li class="item1">
-                    <a href="<%=path %>/company01.jsp" class="dp1">소개</a>
-                    <ul class="sub">
-                        <li><a href="<%=path %>/company01.jsp">인사말</a></li>
-                        <li><a href="<%=path %>/company02.jsp">연혁</a></li>
-                        <li><a href="<%=path %>/company03.jsp">오시는길</a></li>
+<c:set var="headerPath" value="<%=request.getContextPath() %>" />
+<header class="header container-fluid" id="hd">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="${headerPath }/"><i class="fas fa-home"></i>ROCKET SHOP</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                상품
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">교과서</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">참고서</a></li>
+                                <li><a class="dropdown-item" href="#">문제집</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                커뮤니티
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">공지사항</a></li>
+                                <li><a class="dropdown-item" href="#">묻고답하기</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">학습후기</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${headerPath }/FileUploadTest.do">파일 업로드</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${headerPath }/FileUploadTest2.do">파일 업로드2</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                        </li>
                     </ul>
-                </li>
-                <li class="item2">
-                    <a href="<%=path %>/online01.jsp" class="dp1">온라인교육</a>
-                    <ul class="sub">
-                        <li><a href="<%=path %>/online01.jsp">서울시평생학습 포털</a></li>
-                        <li><a href="<%=path %>/online02.jsp">KOCW</a></li>
-                        <li><a href="<%=path %>/online03.jsp">K-MOOC</a></li>
+                    <ul class="nav justify-content-end">
+                        <c:if test="${sid eq 'admin' }">
+                            <li class="nav-item"><a href="${headerPath }/" class="nav-link">관리자페이지</a></li>
+                        </c:if>
+                        <c:if test="${!empty sid }">
+                            <c:if test="${sid ne 'admin'}">
+                                <li class="nav-item"><a href="${headerPath }/" class="nav-link">마이페이지</a></li>
+                            </c:if>
+                            <li class="nav-item"><a href="${headerPath }/logout.do" class="nav-link">로그아웃</a></li>
+                        </c:if>
+                        <c:if test="${empty sid }">
+                            <li class="nav-item"><a href="${headerPath }/login.do" class="nav-link">로그인</a></li>
+                            <li class="nav-item"><a href="${headerPath }/joinTerm.do" class="nav-link">회원가입</a></li>
+                        </c:if>
                     </ul>
-                </li>
-                <li class="item3">
-                    <a href="<%=path %>/license01.jsp" class="dp1">자격증</a>
-                    <ul class="sub">
-                        <li><a href="<%=path %>/license01.jsp">정보처리기사</a></li>
-                        <li><a href="<%=path %>/license02.jsp">정보처리산업기사</a></li>
-                        <li><a href="<%=path %>/board/listBoard.jsp">자유게시판</a></li>
-                    </ul>
-                </li>
-                <li class="item4">
-                    <a href="<%=path %>/board/listNotice.jsp" class="dp1">커뮤니티</a>
-                    <ul class="sub">
-                        <li><a href="<%=path %>/board/listNotice.jsp">공지사항</a></li>
-                        <% if(sid != null && !sid.equals("admin")) { %>
-                        <li><a href="<%=path %>/qna/addQna.jsp">문의하기</a></li>
-                        <% } %>
-                        <li><a href="<%=path %>/faq.jsp">자주하는질문</a></li>
-                    </ul>
-                </li>
-            </ul>
+                </div>
+            </div>
         </nav>
     </div>
-</div>
+</header>

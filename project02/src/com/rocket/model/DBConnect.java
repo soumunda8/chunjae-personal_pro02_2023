@@ -14,7 +14,7 @@ public interface DBConnect {
     /* 고객 */
     final static String CUSTOM_SELECT_ALL = "SELECT * FROM custom ORDER BY regdate DESC";
     final static String CUSTOM_SELECT_ONE = "SELECT * FROM custom WHERE id = ?";
-    final static String CUSTOM_SELECT_LOG = "SELECT * FROM custom where id = ? and pw = ?";
+    final static String CUSTOM_SELECT_LOG = "SELECT * FROM custom where id = ?";
     final static String CUSTOM_INSERT = "INSERT INTO custom VALUES(?, ?, ?, default, default, ?, ?, ?, ?,default)";
     final static String CUSTOM_UPDATE = "UPDATE custom SET pw = ?, tel = ?, email = ? WHERE id = ?";
     final static String CUSTOM_POINT_UPDATE = "UPDATE custom SET point = ? WHERE id = ?";
