@@ -10,11 +10,10 @@
     <link rel="stylesheet" href="${path }/css/main.css">
 </head>
 <body>
-<div class="container">
-    <jsp:include page="../layout/header.jsp" />
-    <div class="contents">
+<jsp:include page="../layout/header.jsp" />
+<div class="contents pt-4 pb-4">
+    <div class="container">
 
-        <p style="color:darkred;font-weight:700;"><i class="fas fa-exclamation-circle"></i> 아이디나 비밀번호가 맞지 않습니다.</p>
     </div>
 </div>
 <jsp:include page="../layout/footer.jsp" />

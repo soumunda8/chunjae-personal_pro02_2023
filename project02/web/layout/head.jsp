@@ -27,21 +27,22 @@
 <!-- 표준 파비콘 -->
 <link rel="shortcut icon" href="${headPath }/image/common/logo.ico">
 <!-- 애플 계열 모바일 -->
-<link rel="apple-touch-icon-precomposed" href="${headPath }/image/common/logo64.png">
+<link rel="apple-touch-icon-precomposed" href="${headPath }/image/common/logo_64.png">
 <!-- IE 계열 브라우저 -->
 <meta name="msapplication-TileColor" content="#FFFFFF">
-<meta name="msapplication-TileImage" content="${headPath }/image/common/logo48.png">
+<meta name="msapplication-TileImage" content="${headPath }/image/common/logo_48.png">
 <!-- 파이어폭스, 오페라, 또는 구형 크롬/사파리 -->
-<link rel="icon" href="${headPath }/image/common/logo16.png" sizes="16x16">
-<link rel="icon" href="${headPath }/image/common/logo32.png" sizes="32x32">
-<link rel="icon" href="${headPath }/image/common/logo48.png" sizes="48x48">
-<link rel="icon" href="${headPath }/image/common/logo64.png" sizes="64x64">
+<link rel="icon" href="${headPath }/image/common/logo_16.png" sizes="16x16">
+<link rel="icon" href="${headPath }/image/common/logo_32.png" sizes="32x32">
+<link rel="icon" href="${headPath }/image/common/logo_48.png" sizes="48x48">
+<link rel="icon" href="${headPath }/image/common/logo_64.png" sizes="64x64">
 
 <link rel="stylesheet" href="${headPath }/css/google.css">
 <link rel="stylesheet" href="${headPath }/css/common.css">
-<link rel="stylesheet" href="${headPath }/css/all.css">
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
 
 <script src="${headPath }/js/jquery-1.10.0.js"></script>
+<script defer src="${headPath }/js/all.js"></script>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>

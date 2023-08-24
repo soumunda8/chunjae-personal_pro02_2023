@@ -1,3 +1,74 @@
 @charset "UTF-8";
 
-.blind {display:none;}
+@font-face {
+    font-family:'Black Ops One';
+    font-style:normal;
+    font-weight:400;
+    src:url("../webfonts/BlackOpsOne-Regular.ttf") format("truetype");
+}
+
+/* Reset Style */
+* {margin:0;padding:0;}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {margin:0;padding:0;border:0;font-size:100%;vertical-align:baseline;font-family:'Noto Sans KR', sans-serif;color:#333;}
+body, html {overflow-x:hidden;-ms-overflow-style:none;scrollbar-width:none;min-height:100vh;}
+body::-webkit-scrollbar, html::-webkit-scrollbar {display:none;}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block;}
+body {line-height:1;}
+img {border:0}
+input {outline:0;}
+ol, ul {list-style:none;}
+a {text-decoration:none!important;}
+blockquote, q {quotes:none;}
+blockquote:before, blockquote:after, q:before, q:after {content:'';}
+table {border-collapse:collapse;border-spacing:0;}
+
+:root {
+    --main-color:#8abeeb;
+    --sub-color:#a1f7d9;
+    --admin-color:#530009;
+}
+.inner {width:1200px;margin:0 auto;position:relative;}
+.clearfix::after {display:block;content:'';clear:both;}
+.blind {position:absolute;width:0;height:0;font-size:0;line-height:0;text-indent:-9999px;overflow:hidden;}
+
+.mainCol {color:var(--main-color);}
+.subCol {color:var(--sub-color);}
+
+.logo {text-decoration:none;font-size:50px;color:var(--main-color);font-family:'Black Ops One', cursive !important;}
+.logo > img {width:100px;height:auto;}
+
+/* header */
+#hd {background-color:#fff;}
+#hd .logo {font-size:30px;margin-right:20px;}
+#hd .logo > img {width:50px;height:auto;}
+
+/* footer */
+#ft {background-color:var(--main-color);}
+#ft .copyright {background-color: rgba(0, 0, 0, 0.2)}
+
+/* table */
+.table {margin:0 auto;width:100%;border-top:2px solid #333;}
+.table tr {border-bottom:1px solid #333;}
+.table th, .table td {font-size:16px;padding:14px 0;}
+.table th {background-color:#f9f9f9;font-weight:600;}
+.tb1 td {text-align:center;}
+.tb1 td.txtLeft {text-align:left;padding-left:15px;}
+.tb2 th {width:15%;}
+.tb2 th.txt_top {vertical-align:top;padding-top:20px;}
+.tb2 td {padding-left:15px;border-left:1px solid #333;}
+
+/* button */
+.btn_group {margin:20px 0 0;}
+.btn_group.txt_center {text-align:center;}
+.btn_group.txt_right {text-align:right;}
+.inBtn {display:inline-block;border-radius:50px;min-width:140px;text-align:center;padding:0 24px;line-height:40px;color:#fff;font-size:18px;border:none;margin-left:10px;cursor:pointer;box-sizing:border-box;background-color:var(--main-color);}
+.inBtn:first-child{margin-left:0;}
+.inBtn:hover, .inBtn:active {box-shadow:2px 2px 5px #333;}
+.inBtn2 {background-color:var(--sub-color);}
+
+/* text */
+.inData {display:inline-block;width:calc(100% - 15px);height:48px;line-height:48px;text-indent:14px;font-size:18px;box-sizing:border-box;}
+textarea.inData {min-height:150px;}
+
+/* contents */
+.contents {margin-top:66px;min-height:70vh;}

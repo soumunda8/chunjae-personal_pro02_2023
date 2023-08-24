@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="${path }/css/sub.css">
 </head>
 <body>
-<section class="vh-100">
+<section class="vh-100 login_area">
     <div class="container-fluid h-custom">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-9 col-lg-6 col-xl-4">
@@ -19,11 +19,11 @@
             <div class="col-md-8 col-lg-6 col-xl-3 offset-xl-1">
                 <form action="${path }/loginPro.do" method="post">
                     <div class="d-flex flex-row align-items-center justify-content-md-center">
-                        <a class="lead fw-normal mb-0 me-3" href="${path }/">Rocket Shop</a>
+                        <a class="logo" href="${path }/"><img src="${path }/image/common/logo.png" title="로켓샵 로고" alt="로켓샵 로고" />RocketShop</a>
                     </div>
 
                     <div class="divider d-flex align-items-center my-4">
-                        <p class="text-center fw-bold mx-3 mb-0">Or</p>
+                        <p class="text-center fw-bold mx-3 mb-0">Login</p>
                     </div>
 
                     <div class="form-outline mb-4">
@@ -36,19 +36,18 @@
                     </div>
                     <c:if test="${msg eq 'fail' }">
                     <div class="d-flex justify-content-md-center align-items-center">
-                        <p class="link-danger" style="font-weight:700;"><i class="fas fa-exclamation-circle"></i> 아이디나 비밀번호가 맞지 않습니다.</p>
+                        <p class="login_err"><i class="fas fa-exclamation-circle"></i> 아이디나 비밀번호가 맞지 않습니다.</p>
                     </div>
                     </c:if>
                     <div class="text-center mt-4 pt-2">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block" style="padding-left:3.5rem; padding-right:3.5rem;">로그인</button>
-                        <p class="small fw-bold mt-2 pt-1 mb-0">회원이 아니신가요? <a href="#!" class="link-danger">회원가입</a></p>
-                        <p class="small fw-bold mt-2 pt-1 mb-0">비밀번호가 기억나지 않으신가요? <a href="#!" class="link-danger">비밀번호 찾기</a></p>
+                        <button type="submit" class="btn btn-lg btn-block inBtn">로그인</button>
+                        <p class="small fw-bold mt-2 pt-1 mb-0">회원이 아니신가요? <a href="${path }/joinTerm.do" class="link-danger">회원가입</a></p>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <div class="d-flex flex-column flex-md-row text-center align-items-center justify-content-md-center py-4 px-4 px-xl-5  bg-primary">
+    <div class="d-flex flex-column flex-md-row text-center align-items-center justify-content-md-center py-4 px-4 px-xl-5 footer_area">
         <div class="text-white mb-3 mb-md-0">
             COPYRIGHT ©2023 RocketShop. ALL RIGHTS RESERVED.
         </div>
