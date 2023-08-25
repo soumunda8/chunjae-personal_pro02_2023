@@ -12,14 +12,14 @@ public interface DBConnect {
     final static String NOTICE_INSERT = "INSERT INTO notice(content, title) VALUES(?, ?)";
     
     /* 고객 */
-    final static String CUSTOM_SELECT_ALL = "SELECT * FROM custom ORDER BY regdate DESC";
-    final static String CUSTOM_SELECT_ONE = "SELECT * FROM custom WHERE id = ?";
-    final static String CUSTOM_SELECT_LOG = "SELECT * FROM custom where id = ?";
-    final static String CUSTOM_INSERT = "INSERT INTO custom VALUES(?, ?, ?, default, default, ?, ?, ?, ?,default)";
-    final static String CUSTOM_UPDATE = "UPDATE custom SET pw = ?, tel = ?, email = ? WHERE id = ?";
-    final static String CUSTOM_POINT_UPDATE = "UPDATE custom SET point = ? WHERE id = ?";
-    final static String CUSTOM_GRADE_UPDATE = "UPDATE custom SET grade = ? WHERE id = ?";
-    final static String CUSTOM_DELETE = "DELETE FROM custom WHERE id = ?";
+    final static String MEMBER_SELECT_ALL = "SELECT * FROM member ORDER BY regdate DESC";
+    final static String MEMBER_SELECT_ONE = "SELECT * FROM member WHERE id = ?";
+    final static String MEMBER_SELECT_LOG = "SELECT * FROM member where id = ?";
+    final static String MEMBER_INSERT = "INSERT INTO member VALUES(?, ?, ?, default, default, ?, ?, ?, ?, ?, default)";
+    final static String MEMBER_UPDATE = "UPDATE member SET pw = ?, tel = ?, email = ?, addr = ?, aCode = ? WHERE id = ?";
+    final static String MEMBER_POINT_UPDATE = "UPDATE member SET point = ? WHERE id = ?";
+    final static String MEMBER_GRADE_UPDATE = "UPDATE member SET grade = ? WHERE id = ?";
+    final static String MEMBER_DELETE = "DELETE FROM member WHERE id = ?";
 
 
     public Connection connect();

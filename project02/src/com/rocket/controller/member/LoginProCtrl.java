@@ -1,6 +1,6 @@
-package com.rocket.controller.custom;
+package com.rocket.controller.member;
 
-import com.rocket.model.CustomDAO;
+import com.rocket.model.MemberDAO;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +17,7 @@ public class LoginProCtrl extends HttpServlet {
         String pw = request.getParameter("pw");
         String msg = "loginLog";
 
-        CustomDAO dao = new CustomDAO();
+        MemberDAO dao = new MemberDAO();
         boolean pass = false;
         try {
             pass = dao.login(id, pw);

@@ -1,6 +1,6 @@
-package com.rocket.controller.custom;
+package com.rocket.controller.member;
 
-import com.rocket.model.CustomDAO;
+import com.rocket.model.MemberDAO;
 import org.json.JSONObject;
 
 import javax.servlet.*;
@@ -15,7 +15,7 @@ public class IdCheckCtrl extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String id = request.getParameter("id");
-        CustomDAO dao = new CustomDAO();
+        MemberDAO dao = new MemberDAO();
         boolean pass = false;
         pass = dao.idCheck(id);
 

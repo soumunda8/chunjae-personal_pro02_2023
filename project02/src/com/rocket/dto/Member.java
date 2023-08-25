@@ -1,6 +1,6 @@
 package com.rocket.dto;
 
-public class Custom {
+public class Member {
 
     private String id;
     private String pw;
@@ -11,6 +11,7 @@ public class Custom {
     private String email;
     private String birth;
     private String addr;
+    private String acode;
     private String regdate;
 
     public String getId() {
@@ -85,6 +86,14 @@ public class Custom {
         this.addr = addr;
     }
 
+    public String getAcode() {
+        return acode;
+    }
+
+    public void setAcode(String acode) {
+        this.acode = acode;
+    }
+
     public String getRegdate() {
         return regdate;
     }
@@ -105,6 +114,7 @@ public class Custom {
                 ", email='" + email + '\'' +
                 ", birth='" + birth + '\'' +
                 ", addr='" + addr + '\'' +
+                ", acode='" + acode + '\'' +
                 ", regdate='" + regdate + '\'' +
                 '}';
     }

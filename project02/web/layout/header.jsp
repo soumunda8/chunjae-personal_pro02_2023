@@ -37,7 +37,7 @@
                 </c:if>
                 <c:if test="${!empty sid }">
                     <c:if test="${sid ne 'admin'}">
-                        <li class="nav-item"><a href="${headerPath }/" class="nav-link">마이페이지</a></li>
+                        <li class="nav-item"><a href="${headerPath }/myPage.do" class="nav-link">마이페이지</a></li>
                     </c:if>
                     <li class="nav-item"><a href="${headerPath }/logout.do" class="nav-link">로그아웃</a></li>
                 </c:if>

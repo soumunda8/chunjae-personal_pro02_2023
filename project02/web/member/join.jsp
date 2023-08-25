@@ -64,7 +64,7 @@
                                 </div>
 
                                 <div class="form-outline mb-4">
-                                    <input type="tel" name="tel" id="tel" maxlength="11" placeholder="전화번호 숫자만 입력 000-0000-0000" class="form-control" required>
+                                    <input type="tel" name="tel" id="tel" maxlength="13" placeholder="전화번호 숫자만 입력 000-0000-0000" class="form-control" required>
                                     <label class="form-label blind" for="tel">전화번호</label>
                                 </div>
 

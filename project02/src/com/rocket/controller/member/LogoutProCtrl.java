@@ -1,4 +1,4 @@
-package com.rocket.controller.custom;
+package com.rocket.controller.member;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;

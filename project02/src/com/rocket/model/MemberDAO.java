@@ -6,63 +6,82 @@ import com.rocket.util.AES256;
 import java.sql.*;
 import java.util.*;
 
-public class CustomDAO {
+public class MemberDAO {
 
     static Connection conn = null;
     static PreparedStatement pstmt = null;
     static ResultSet rs = null;
     String key = "%02x";
 
-    public List<Custom> getCustomList(){
-        List<Custom> cusList = new ArrayList<>();
+    public List<Member> getMemberList(){
+        List<Member> memberList = new ArrayList<>();
 
-        return cusList;
+        return memberList;
     }
 
-    public Custom getCustom(String id){
-        Custom cus = new Custom();
+    public Member getMember(String id){
+        Member member = new Member();
         DBConnect con = new PostGreCon();
         try {
             conn = con.connect();
-            pstmt = conn.prepareStatement(DBConnect.CUSTOM_SELECT_ONE);
+            pstmt = conn.prepareStatement(DBConnect.MEMBER_SELECT_ONE);
             pstmt.setString(1, id);
             rs = pstmt.executeQuery();
             if(rs.next()){
-                cus.setId(rs.getString("id"));
-                cus.setPw(rs.getString("pw"));
-                cus.setName(rs.getString("name"));
-                cus.setPoint(rs.getInt("point"));
-                cus.setGrade(rs.getString("grade"));
-                cus.setTel(rs.getString("tel"));
-                cus.setEmail(rs.getString("email"));
-                cus.setBirth(rs.getString("birth"));
-                cus.setRegdate(rs.getString("regdate"));
+                member.setId(rs.getString("id"));
+                member.setPw(rs.getString("pw"));
+                member.setName(rs.getString("name"));
+                member.setPoint(rs.getInt("point"));
+                member.setGrade(rs.getString("grade"));
+                member.setTel(rs.getString("tel"));
+                member.setEmail(rs.getString("email"));
+                member.setBirth(rs.getString("birth"));
+                member.setAddr(rs.getString("addr"));
+                member.setAcode(rs.getString("acode"));
+                member.setRegdate(rs.getString("regdate"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
             con.close(rs, pstmt, conn);
         }
-        return cus;
+        return member;
+    }
+
+    public String getOriginPw(String pw, String type) {
+
+        String originPw = "";
+
+        try {
+            originPw = AES256.decryptAES256(pw, key);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        if(!type.equals("login")) {
+            String checkPw = originPw.substring(0, 2);
+            for(int i = 0; i < originPw.length()-2; i++) {
+                checkPw += "*";
+            }
+            originPw = checkPw;
+        }
+
+        return originPw;
     }
 
     public boolean login(String id, String pw) {
         boolean pass = false;
         DBConnect con = new PostGreCon();
-        String qpw = "";
+        String originPw = "";
 
         try {
             conn = con.connect();
-            pstmt = conn.prepareStatement(DBConnect.CUSTOM_SELECT_LOG);
+            pstmt = conn.prepareStatement(DBConnect.MEMBER_SELECT_LOG);
             pstmt.setString(1, id);
             rs = pstmt.executeQuery();
             if(rs.next()){
-                try {
-                    qpw = AES256.decryptAES256(rs.getString("pw"), key);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-                if(pw.equals(qpw)){
+                originPw = getOriginPw(rs.getString("pw"), "login");
+                if(pw.equals(originPw)){
                     pass = true;
                 } else {
                     pass = false;
@@ -79,12 +98,11 @@ public class CustomDAO {
     }
 
     public boolean idCheck(String id){
-        Custom cus = new Custom();
         DBConnect con = new PostGreCon();
         boolean pass = false;
         try {
             conn = con.connect();
-            pstmt = conn.prepareStatement(DBConnect.CUSTOM_SELECT_ONE);
+            pstmt = conn.prepareStatement(DBConnect.MEMBER_SELECT_ONE);
             pstmt.setString(1, id);
             rs = pstmt.executeQuery();
             if(rs.next()){
@@ -100,13 +118,13 @@ public class CustomDAO {
         return pass;
     }
 
-    public int addCustom(Custom user) {
+    public int addMember(Member user) {
         int cnt = 0;
         DBConnect con = new PostGreCon();
         try {
             conn = con.connect();
             System.out.println(user.toString());
-            pstmt = conn.prepareStatement(DBConnect.CUSTOM_INSERT);
+            pstmt = conn.prepareStatement(DBConnect.MEMBER_INSERT);
             pstmt.setString(1, user.getId());
             pstmt.setString(2, user.getPw());
             pstmt.setString(3, user.getName());
@@ -114,6 +132,7 @@ public class CustomDAO {
             pstmt.setString(5, user.getEmail());
             pstmt.setString(6, user.getBirth());
             pstmt.setString(7, user.getAddr());
+            pstmt.setString(8, user.getAcode());
             cnt = pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
