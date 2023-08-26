@@ -24,42 +24,42 @@
         <div class="container">
             <h3 class="text-center fs-1 my-5">마이페이지</h3>
             <div class="page mb-5">
-                <table>
+                <table class="table table-striped-columns">
                     <tbody>
                     <tr>
-                        <th>이름</th>
+                        <th scope="row">이름</th>
                         <td>${member.name }</td>
                     </tr>
                     <tr>
-                        <th>아이디</th>
+                        <th scope="row">아이디</th>
                         <td>${member.id }</td>
                     </tr>
                     <tr>
-                        <th>비밀번호</th>
+                        <th scope="row">비밀번호</th>
                         <td>${originPw }</td>
                     </tr>
                     <tr>
-                        <th>포인트</th>
+                        <th scope="row">포인트</th>
                         <td>${member.point }</td>
                     </tr>
                     <tr>
-                        <th>등급</th>
+                        <th scope="row">등급</th>
                         <td>${member.grade }</td>
                     </tr>
                     <tr>
-                        <th>전화번호</th>
+                        <th scope="row">전화번호</th>
                         <td>${member.tel }</td>
                     </tr>
                     <tr>
-                        <th>이메일</th>
+                        <th scope="row">이메일</th>
                         <td>${member.email }</td>
                     </tr>
                     <tr>
-                        <th>생일</th>
+                        <th scope="row">생일</th>
                         <td>${member.birth }</td>
                     </tr>
                     <tr>
-                        <th>주소</th>
+                        <th scope="row">주소</th>
                         <td>
                             [${member.acode}]
                             <c:forEach var="addrDetaild" items="${addr }">
@@ -69,6 +69,19 @@
                     </tr>
                     </tbody>
                 </table>
+                <div class="btn_group txt_right">
+                    <a href="${path }/modifyMyInfo.do" class="inBtn">회원정보수정</a>
+                    <button type="button" class="inBtn inBtn2" onclick="toDeletingAccount('${member.id }')">회원탈퇴</button>
+                </div>
+                <script>
+                    function toDeletingAccount(id) {
+                        var check = confirm("회원탈퇴를 하시겠습니까?");
+                        if(check) {
+                            location.href = "${path }/deleteMyInfoPro.do?id="+id;
+                        }
+                        return false;
+                    }
+                </script>
             </div>
         </div>
     </div>

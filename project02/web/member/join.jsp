@@ -73,7 +73,7 @@
                                     <input type="text" name="address2" id="address2" placeholder="상세 주소 입력" class="form-control" required />
                                     <input type="text" name="postcode" id="postcode" placeholder="우편번호" class="form-control">
                                     <button type="button" id="post_btn" onclick="findAddr()" class="btn">우편번호 검색</button>
-                                    <label class="form-label blind" for="tel">주소</label>
+                                    <label class="form-label blind" for="address1">주소</label>
                                 </div>
 
                                 <div class="d-flex justify-content-center">

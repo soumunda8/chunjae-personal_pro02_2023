@@ -15,7 +15,32 @@ public class MemberDAO {
 
     public List<Member> getMemberList(){
         List<Member> memberList = new ArrayList<>();
-
+        DBConnect con = new PostGreCon();
+        try {
+            conn = con.connect();
+            pstmt = conn.prepareStatement(DBConnect.MEMBER_SELECT_ALL);
+            rs = pstmt.executeQuery();
+            while(rs.next()){
+                Member member = new Member();
+                member.setId(rs.getString("id"));
+                member.setPw(rs.getString("pw"));
+                member.setName(rs.getString("name"));
+                member.setPoint(rs.getInt("point"));
+                member.setGrade(rs.getString("grade"));
+                member.setTel(rs.getString("tel"));
+                member.setEmail(rs.getString("email"));
+                member.setBirth(rs.getString("birth"));
+                member.setAddr(rs.getString("addr"));
+                member.setAcode(rs.getString("acode"));
+                member.setUseyn(rs.getBoolean("useyn"));
+                member.setRegdate(rs.getString("regdate"));
+                memberList.add(member);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            con.close(rs, pstmt, conn);
+        }
         return memberList;
     }
 
@@ -38,6 +63,7 @@ public class MemberDAO {
                 member.setBirth(rs.getString("birth"));
                 member.setAddr(rs.getString("addr"));
                 member.setAcode(rs.getString("acode"));
+                member.setUseyn(rs.getBoolean("useyn"));
                 member.setRegdate(rs.getString("regdate"));
             }
         } catch (SQLException e) {
@@ -118,27 +144,65 @@ public class MemberDAO {
         return pass;
     }
 
-    public int addMember(Member user) {
+    public int addMember(Member member) {
         int cnt = 0;
         DBConnect con = new PostGreCon();
         try {
             conn = con.connect();
-            System.out.println(user.toString());
             pstmt = conn.prepareStatement(DBConnect.MEMBER_INSERT);
-            pstmt.setString(1, user.getId());
-            pstmt.setString(2, user.getPw());
-            pstmt.setString(3, user.getName());
-            pstmt.setString(4, user.getTel());
-            pstmt.setString(5, user.getEmail());
-            pstmt.setString(6, user.getBirth());
-            pstmt.setString(7, user.getAddr());
-            pstmt.setString(8, user.getAcode());
+            pstmt.setString(1, member.getId());
+            pstmt.setString(2, member.getPw());
+            pstmt.setString(3, member.getName());
+            pstmt.setString(4, member.getTel());
+            pstmt.setString(5, member.getEmail());
+            pstmt.setString(6, member.getBirth());
+            pstmt.setString(7, member.getAddr());
+            pstmt.setString(8, member.getAcode());
             cnt = pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
             con.close(pstmt, conn);
         }
+        return cnt;
+    }
+
+    public int modifyMember(Member member) {
+        int cnt = 0;
+        DBConnect con = new PostGreCon();
+        try {
+            conn = con.connect();
+            pstmt = conn.prepareStatement(DBConnect.MEMBER_UPDATE);
+            pstmt.setString(1, member.getPw());
+            pstmt.setString(2, member.getTel());
+            pstmt.setString(3, member.getEmail());
+            pstmt.setString(4, member.getAddr());
+            pstmt.setString(5, member.getAcode());
+            pstmt.setString(6, member.getId());
+            cnt = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            con.close(pstmt, conn);
+        }
+        return cnt;
+    }
+
+    public int deleteMember(String id) {
+        int cnt = 0;
+        DBConnect con = new PostGreCon();
+
+        try {
+            conn = con.connect();
+            pstmt = conn.prepareStatement(DBConnect.MEMBER_DELETE);
+            pstmt.setString(1, id);
+            cnt = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            con.close(pstmt, conn);
+        }
+
         return cnt;
     }
 

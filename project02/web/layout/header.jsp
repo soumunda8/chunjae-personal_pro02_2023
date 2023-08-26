@@ -33,7 +33,7 @@
             </ul>
             <ul class="nav justify-content-end">
                 <c:if test="${sid eq 'admin' }">
-                    <li class="nav-item"><a href="${headerPath }/" class="nav-link">관리자페이지</a></li>
+                    <li class="nav-item"><a href="${headerPath }/memberListAdmin.do" class="nav-link">관리자페이지</a></li>
                 </c:if>
                 <c:if test="${!empty sid }">
                     <c:if test="${sid ne 'admin'}">

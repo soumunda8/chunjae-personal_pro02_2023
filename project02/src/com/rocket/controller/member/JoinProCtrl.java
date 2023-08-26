@@ -29,7 +29,7 @@ public class JoinProCtrl extends HttpServlet {
         MemberDAO dao = new MemberDAO();
         boolean pass = dao.idCheck(id);
 
-        Member user = new Member();
+        Member member = new Member();
         String key = "%02x";
         String encrypted = "";
 
@@ -40,15 +40,15 @@ public class JoinProCtrl extends HttpServlet {
                 e.printStackTrace();
             }
 
-            user.setId(id);
-            user.setPw(encrypted);
-            user.setName(name);
-            user.setAddr(addr1 + "/" +addr2);
-            user.setTel(tel);
-            user.setEmail(email);
-            user.setBirth(birth);
-            user.setAcode(aCode);
-            suc = dao.addMember(user);
+            member.setId(id);
+            member.setPw(encrypted);
+            member.setName(name);
+            member.setAddr(addr1 + "/" +addr2);
+            member.setTel(tel);
+            member.setEmail(email);
+            member.setBirth(birth);
+            member.setAcode(aCode);
+            suc = dao.addMember(member);
 
             if(suc>0){
                 response.sendRedirect(request.getContextPath() + "/joinFinish.do");

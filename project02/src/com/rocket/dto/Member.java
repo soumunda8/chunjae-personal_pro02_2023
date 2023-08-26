@@ -13,6 +13,7 @@ public class Member {
     private String addr;
     private String acode;
     private String regdate;
+    private boolean useyn;
 
     public String getId() {
         return id;
@@ -102,6 +103,14 @@ public class Member {
         this.regdate = regdate;
     }
 
+    public boolean isUseyn() {
+        return useyn;
+    }
+
+    public void setUseyn(boolean useyn) {
+        this.useyn = useyn;
+    }
+
     @Override
     public String toString() {
         return "Custom{" +
@@ -116,6 +125,7 @@ public class Member {
                 ", addr='" + addr + '\'' +
                 ", acode='" + acode + '\'' +
                 ", regdate='" + regdate + '\'' +
+                ", useyn='" + useyn + '\'' +
                 '}';
     }
 
