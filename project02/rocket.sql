@@ -78,12 +78,12 @@ create table category(
 
 -- 파일(file) 테이블 - O
 create table files(
-    fno serial primary key,			            -- 파일 번호 : 자동증가
-    filetitle varchar(200) not null,			-- 파일 제목
-    filename varchar(500),  					-- 파일 이름
-    filetype varchar(20),			            -- 파일 타입/확장자
-    par varchar(100),				            -- 해당 테이블명
-    parno INTEGER					            -- 해당 테이블 PK값
+    fno serial primary key,			            	-- 파일 번호 : 자동증가
+    filetitle varchar(500),	   						-- 파일 사용 용도
+    filename varchar(500) default 'noImage.png',	-- 파일 이름
+    filetype varchar(20) default 'image/png',	    -- 파일 타입/확장자
+    par varchar(100),				            	-- 해당 테이블명
+    parno INTEGER					            	-- 해당 테이블 PK값
 );
 
 -- 상품(product) 테이블 - O
@@ -94,6 +94,120 @@ create table product(
     price integer default 1000,                     -- 상품 가격
     pcomment varchar(2000) not null,                -- 상품 설명
     plist varchar(2000),                            -- 상품 목차
-    thumbnail varchar(200) not null,                -- 상품 섬네일
+    thumbnail varchar(200),                			-- 상품 섬네일
+    videosub varchar(200),			                -- 비디오 존재시 제목
     resdate timestamp default current_timestamp     -- 상품 등록일
 );
+
+-- 상품 뷰 생성
+CREATE VIEW productList AS (
+    select p.prono as prono, p.cateno as cateno, p.pname as pname, p.price as price, p.pcomment as pcomment,
+           p.plist as plist, p.thumbnail as thumbnail, p.videosub as videosub, p.resdate as resdate, c.cname as cname
+    from product p, category c
+    where p.cateno = c.cateno
+    order by p.prono desc
+);
+
+-- 입고(receive) 테이블 - O
+create table receive(
+    rno serial primary key,                       -- 입고 번호 : 자동증가
+    prono integer not null,                       -- 상품 번호
+    amount integer default 1,                     -- 입고 갯수
+    rprice integer default 1000,                  -- 입고 가격
+    resdate timestamp default current_timestamp   -- 입고일
+);
+
+-- 출고(serve) 테이블 - O
+create table serve(
+    sno serial primary key,                       -- 출고 번호 : 자동증가
+    prono integer not null,                       -- 상품 번호
+    amount integer default 1,                     -- 출고 갯수
+    sprice integer default 1000,                  -- 출고 가격
+    resdate timestamp default current_timestamp   -- 출고일
+);
+
+-- 전체 이익 통계 뷰 작성
+create view profit as (select prono, sum(sprice*amount) as tot from serve group by prono EXCEPT select prono, sum(rprice*amount) as tot from receive group by prono);
+
+-- 재고 처리 뷰 생성
+create view inventory as (select a.prono as prono, (sum(a.amount)-sum(b.amount)) as amount from receive a, serve b where a.prono=b.prono group by a.prono, b.prono);
+
+-- 배송(delivery) 테이블 - X
+create table delivery(
+    dno serial primary key,                             -- 배송 번호 : 자동증가
+    sno integer not null, cid varchar(20) not null,     -- 출고 번호
+    daddr varchar(300) not null,                        -- 배송 주소
+    custel varchar(13) not null,                        -- 고객 번호
+    pcom varchar(100),                                  -- 배송 번호
+    ptel varchar(13),
+    pstate integer default 0,
+    sdate timestamp default current_timestamp,
+    rdate varchar(13),
+    bcode varchar(30)
+);
+
+-- 결제(payment) 테이블 - X
+create table payment(
+    sno serial primary key,
+    cid varchar(20) not null,
+    prono integer not null,
+    amount integer default 1,
+    pmethod varchar(100),
+    pcom varchar(100),
+    cnum varchar(100),
+    payprice integer default 1000,
+    dno varchar(100)
+);
+
+-- 장바구니(cart) 테이블 - X
+create table cart(
+    cartno serial primary key,
+    cid varchar(20) not null,
+    prono integer not null,
+    amount integer not null
+);
+
+-- 리뷰(review) 테이블 - X
+create table review(
+    rno serial primary key,
+    sno integer not null,
+    cid varchar(20) not null,
+    content varchar(500) not null,
+    star integer default 5,
+    resdate timestamp default current_timestamp
+);
+
+-- 아래 참조하면서 진행하기
+-- 상품 목록
+select * from product order by prono;
+-- 신상품 목록
+select * from product order by prono desc limit 5;
+-- 베스트셀러 상품 목록
+select * from product where prono in (select prono from payment group by prono order by sum(amount) desc limit 5);
+-- 카테고리별 신상품 목록
+select * from product where cateno=? order by prono desc limit 3;
+-- 카테고리별 베스트셀러 상품 목록
+select * from product where pcode in (select prono from payment group by prono order by sum(amount)) and cateno=? limit 3;
+
+-- 입고 처리 패턴
+insert into receive values (default, ?, ?, ?, default);
+insert into receive(prono, amount, rprice) values (?, ?, ?);
+
+-- 출고 처리 패턴
+insert into payment values (default, ?, ?, ?, ?, ?, ?, ?, '');
+insert into serve values(default, ?, ?, ?, default);
+insert into delivery values (default, ?, ?, ?, ?, '','',default,default,'','');
+delete from cart where cartno=?;
+
+-- 반품 처리 패턴(배송전이면 반품 가능)
+delete from payment where sno=?;
+insert into receive values (default, ?, ?, ?, default);
+delete from serve where sno=?;
+insert into cart values (default, ?, ?, ?);
+delete from delivery where sno=?;
+
+-- 배송처리
+update delivery set pcom=?, ptel=?, pstate=1, sdate=current_timestamp, rdate=?, bcode=? where dno=?;
+
+-- 배송 완료 처리
+update delivery set pstate=2 where dno=?;

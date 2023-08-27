@@ -2,27 +2,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="<%=request.getContextPath() %>" />
-<c:set var="adminPath" value="<%=request.getContextPath()+"/admin" %>" />
-<div class="admin_hd_wrap" id="adminHdWrap">
-    <a href="${path }/" class="logo">
-        <img src="${path }/image/common/logo.png" alt="plus&plusEdu 로고타입">
-        <p><span class="mainCol">Plus</span> & <span class="subCol">Plus</span> Edu</p>
-    </a>
-    <nav id="adminHdGnb">
-        <h2>관리자페이지</h2>
-        <ul class="menu">
-            <li class="item1">
-                <a href="${adminPath }/memberList.jsp" class="dp1">회원 관리</a>
-            </li>
-            <li class="item2">
-                <a href="${adminPath }/noticeList.jsp" class="dp1">공지사항 관리</a>
-            </li>
-            <li class="item3">
-                <a href="${adminPath }/qnaList.jsp" class="dp1">문의 관리</a>
-            </li>
+<nav class="col-2 bg-light menu_area">
+    <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link<c:if test="${page eq 'member'}"> active</c:if>" href="${path }/memberListAdmin.do"><i class="fas fa-users"></i> 회원 관리<span class="sr-only">(current)</span></a></li>
+            <li class="nav-item"><a class="nav-link<c:if test="${page eq 'product'}"> active</c:if>" href="${path }/productListAdmin.do"><i class="fas fa-shopping-cart"></i> 상품 관리</a></li>
+            <li class="nav-item"><a class="nav-link<c:if test="${page eq 'order'}"> active</c:if>" href="${path }/memberListAdmin.do"><i class="fas fa-truck"></i> 주문 관리</a></li>
+            <li class="nav-item"><a class="nav-link<c:if test="${page eq 'category'}"> active</c:if>" href="${path }/categoryListAdmin.do"><i class="fas fa-layer-group"></i> 카테고리 관리</a></li>
         </ul>
-    </nav>
-</div>
-
-<script>
-</script>
+    </div>
+</nav>

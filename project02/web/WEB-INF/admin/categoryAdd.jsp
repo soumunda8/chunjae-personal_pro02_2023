@@ -21,22 +21,13 @@
 
     <div class="container-fluid">
         <div class="row">
-            <nav class="col-2 bg-light menu_area">
-                <div class="sidebar-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item"><a class="nav-link" href="${path }/memberListAdmin.do"><i class="fas fa-users"></i> 회원 관리</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i> 상품 관리</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-truck"></i> 주문 관리</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="${path }/categoryListAdmin.do"><i class="fas fa-layer-group"></i> 카테고리 관리<span class="sr-only">(current)</span></a></li>
-                    </ul>
-                </div>
-            </nav>
+            <jsp:include page="../../layout/adminHeader.jsp" />
             <div class="col-10 pt-3 px-4 border-start">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
                     <h1 class="h2">카테고리 등록</h1>
                 </div>
                 <div class="table-responsive text-center">
-                    <form action="${path}/categoryAddProAdmin.do" method="post">
+                    <form action="${path}/addCategoryPro.do" method="post">
                         <input type="hidden" name="par" id="par" value="${par }">
                         <table class="table table-striped-columns table-sm">
                             <colgroup>

@@ -1,6 +1,6 @@
 package com.rocket.dto;
 
-public class File {
+public class Files {
 
     private int fno;
     private String filetitle;

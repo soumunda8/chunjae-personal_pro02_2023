@@ -16,6 +16,8 @@ public class CategoryAddAdminCtrl extends HttpServlet {
 
         request.setAttribute("par", par);
 
+        request.setAttribute("page", "category");
+
         if(sid != null && sid.equals("admin")) {
             RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/categoryAdd.jsp");
             view.forward(request, response);

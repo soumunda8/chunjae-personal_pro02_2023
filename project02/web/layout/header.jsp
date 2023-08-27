@@ -1,8 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="com.rocket.model.CategoryDAO" %>
+<%@ page import="com.rocket.dto.Category" %>
+<%@ page import="java.util.List" %>
+<%
+    CategoryDAO headerCategoryDao = new CategoryDAO();
+    List<Category> categoryHeaderList = headerCategoryDao.getCategoryList("product");
+%>
 <c:set var="headerPath" value="<%=request.getContextPath() %>" />
-<header class="fixed-top" id="hd">
+<header class="fixed-top border-bottom" id="hd">
     <nav class="navbar container navbar-expand-lg navbar-light">
         <a class="logo" href="${headerPath }/"><img src="${headerPath }/image/common/logo.png" title="로켓샵 로고" alt="로켓샵 로고" />ROCKET SHOP</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,12 +18,15 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="${headerPath }/sub.do" role="button" data-bs-toggle="dropdown" aria-expanded="false">상품</a>
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">상품</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="${headerPath }/sub.do">교과서</a></li>
+                        <% for(Category cate : categoryHeaderList) { %>
+                        <li><a class="dropdown-item" href="${headerPath }/listProduct.do?cateno=<%=cate.getCateno() %>"><%=cate.getCname() %></a></li>
+                        <% } %>
+                        <%--<li><a class="dropdown-item" href="${headerPath }/sub.do">교과서</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">참고서</a></li>
-                        <li><a class="dropdown-item" href="#">문제집</a></li>
+                        <li><a class="dropdown-item" href="#">문제집</a></li>--%>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">

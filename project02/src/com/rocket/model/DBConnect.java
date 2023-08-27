@@ -20,8 +20,16 @@ public interface DBConnect {
     final static String NOTICE_INSERT = "INSERT INTO notice(content, title) VALUES(?, ?)";
 
     /* product */
-    final static String PRODUCT_SELECT_ALL = "";
-    final static String PRODUCT_INSERT = "INSERT INTO member VALUES(?, ?, ?, default, default, ?, ?, ?, ?, ?, default, default)";
+    final static String PRODUCT_SELECT_ALL = "SELECT * FROM productList";
+    final static String PRODUCT_SELECT_ONE = "SELECT * FROM productList WHERE prono = ?";
+    final static String PRODUCT_SELECT_CATEGORY = "SELECT * FROM productList WHERE cateno = ?";
+    final static String PRODUCT_INSERT = "INSERT INTO product VALUES(default, ?, ?, ?, ?, ?, ?, ?, default)";
+    final static String PRODUCT_UPDATE = "UPDATE product SET cateno = ?, pname = ?, price = ?, pcomment = ?, plist = ?, thumbnail = ?, videosub = ? WHERE prono = ?";
+    final static String PRODUCT_DELETE = "DELETE FROM product WHERE prono = ?";
+
+    // product - inventory
+    final static String INVENTORY_SELECT_ALL = "select * from inventory order by pno desc";
+    final static String INVENTORY_SELECT_ONE = "select * from inventory where pno=?";
 
     /* category */
     final static String CATEGORY_SELECT_ALL = "SELECT * FROM category WHERE par = ?";
@@ -29,6 +37,9 @@ public interface DBConnect {
     final static String CATEGORY_INSERT = "INSERT INTO category VALUES(?, ?, ?)";
     final static String CATEGORY_UPDATE = "UPDATE category SET cname = ? WHERE cateno = ?";
     final static String CATEGORY_DELETE = "DELETE FROM category WHERE cateno = ?";
+
+    /* files */
+    final static String FILES_INSERT = "INSERT INTO files VALUES(default, ?, ?, ?, ?, ?)";
 
 
     public Connection connect();

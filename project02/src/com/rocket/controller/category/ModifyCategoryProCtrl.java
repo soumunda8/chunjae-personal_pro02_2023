@@ -1,16 +1,19 @@
-package com.rocket.controller.admin;
+package com.rocket.controller.category;
 
 import com.rocket.dto.Category;
 import com.rocket.model.CategoryDAO;
 
-import javax.servlet.*;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/categoryAddProAdmin.do")
-public class CategoryAddProAdminCtrl extends HttpServlet {
+@WebServlet("/modifyCategoryPro.do")
+public class ModifyCategoryProCtrl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -29,7 +32,7 @@ public class CategoryAddProAdminCtrl extends HttpServlet {
             category.setCateno(cateno);
             category.setCname(cname);
             category.setPar(par);
-            int cnt = dao.addCategory(category);
+            int cnt = dao.modifyCategory(category);
             if(cnt > 0) {
                 response.sendRedirect(request.getContextPath()+"/categoryListAdmin.do?type="+par);
             } else {

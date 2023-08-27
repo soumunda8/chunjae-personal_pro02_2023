@@ -1,36 +1,32 @@
 package com.rocket.controller.admin;
 
+import com.rocket.dto.Category;
 import com.rocket.model.CategoryDAO;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 
-@WebServlet("/categoryDeleteProAdmin.do")
-public class CategoryDeleteProAdminCtrl extends HttpServlet {
+@WebServlet("/productAddAdmin.do")
+public class ProductAddAdminCtrl extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
         String sid = (String) session.getAttribute("sid");
 
-        PrintWriter out = response.getWriter();
-
-        String id = request.getParameter("id");
-        String type = request.getParameter("par");
-
         if(sid != null && sid.equals("admin")) {
             CategoryDAO dao = new CategoryDAO();
-            int cnt = dao.deleteCategory(id);
+            List<Category> categoryList = dao.getCategoryList("product");
+            request.setAttribute("categoryList", categoryList);
 
-            if(cnt > 0) {
-                response.sendRedirect(request.getContextPath()+"/categoryListAdmin.do?type="+type);
-            } else {
-                out.println("<script>history.go(-1);</script>");
-            }
-        } else {
+            request.setAttribute("page", "product");
+
+            RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/productAdd.jsp");
+            view.forward(request, response);
+        }else {
             response.sendRedirect(request.getContextPath()+"/");
         }
 

@@ -24,55 +24,53 @@
             <jsp:include page="../../layout/adminHeader.jsp" />
             <div class="col-10 pt-3 px-4 border-start">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                    <h1 class="h2">회원 관리</h1>
+                    <h1 class="h2">상품 관리</h1>
                 </div>
                 <div class="table-responsive text-center">
                     <table class="table table-striped table-sm">
                         <colgroup>
                             <col style="width:10%">
-                            <col style="width:20%">
-                            <col style="width:20%">
+                            <col style="width:auto">
+                            <col style="width:30%">
                             <col style="width:20%">
                             <col style="width:10%">
                         </colgroup>
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>이름</th>
-                            <th>아이디</th>
-                            <th>탈퇴 여부</th>
+                            <th>상품명</th>
+                            <th>가격</th>
+                            <th>카테고리</th>
                             <th>비고</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="member" items="${memberList }" varStatus="status">
+                        <c:forEach var="product" items="${productList }" varStatus="status">
                             <tr>
                                 <td>${status.count }</td>
-                                <td>${member.name}</td>
-                                <td>${member.id}</td>
+                                <td><a href="${path}/productGetAdmin.do?prono=${product.prono }">${product.pname}</a></td>
+                                <td>${product.price } 원</td>
+                                <td>${product.cname }</td>
                                 <td>
-                                    <c:if test="${member.useyn eq true}">N</c:if>
-                                    <c:if test="${member.useyn eq false}">Y</c:if>
-                                </td>
-                                <td>
-                                    <c:if test="${member.useyn eq true}">
-                                    <button type="button" class="inBtn" onclick="toDeletingAccount('${member.id }')">회원탈퇴</button>
-                                    </c:if>
+                                    <button type="button" class="inBtn inBtn2" onclick="toDelete('${product.prono }')">삭제</button>
                                 </td>
                             </tr>
                         </c:forEach>
-                        <c:if test="${memberList.size() < 1 }">
+                        <c:if test="${productList.size() < 1 }">
                             <tr>
-                                <td colspan="5">가입한 회원이 없습니다.</td>
+                                <td colspan="5">등록된 상품이 없습니다.</td>
                             </tr>
                         </c:if>
                         </tbody>
                     </table>
+                    <div class="btn_group txt_right">
+                        <a href="${path}/productAddAdmin.do" class="inBtn">등록</a>
+                    </div>
                     <script>
-                        function toDeletingAccount(id) {
-                            var check = confirm("회원탈퇴를 진행시키겠습니까?");
+                        function toDelete(prono) {
+                            var check = confirm("상품을 삭제하겠습니까?");
                             if(check) {
-                                location.href = "${path }/deleteMyInfoPro.do?id="+id;
+                                location.href = "${path }/deleteProductPro.do?prono="+prono;
                             }
                             return false;
                         }
