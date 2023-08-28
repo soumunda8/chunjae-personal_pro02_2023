@@ -132,6 +132,8 @@ create view profit as (select prono, sum(sprice*amount) as tot from serve group 
 
 -- 재고 처리 뷰 생성
 create view inventory as (select a.prono as prono, (sum(a.amount)-sum(b.amount)) as amount from receive a, serve b where a.prono=b.prono group by a.prono, b.prono);
+create view sel1 as (select prono, sum(amount) as amount from serve group by prono)
+create view sel2 as (select prono, sum(amount) as amount from receive group by prono)
 
 -- 배송(delivery) 테이블 - O
 create table delivery(

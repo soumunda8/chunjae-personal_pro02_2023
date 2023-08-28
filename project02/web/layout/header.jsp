@@ -1,9 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="com.rocket.model.CategoryDAO" %>
-<%@ page import="com.rocket.dto.Category" %>
-<%@ page import="java.util.List" %>
 <c:set var="headerPath" value="<%=request.getContextPath() %>" />
 <header class="fixed-top border-bottom" id="hd">
     <div class="top-bar">
@@ -55,7 +52,7 @@
             </ul>
             <ul class="nav justify-content-end">
                 <c:if test="${!empty sid && sid ne 'admin' }">
-                    <button class="nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#showCart" aria-controls="offcanvasRight"><i class="fas fa-cart-plus"></i></button>
+                    <button class="nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#showCart" id="openModal" aria-controls="offcanvasRight"><i class="fas fa-cart-plus"></i></button>
                 </c:if>
             </ul>
         </div>
@@ -87,4 +84,18 @@
         <a class="inBtn inBtn2">비우기</a>
     </div>
 </div>
+<script>
+    var myOffcanvas = document.getElementById('showCart')
+    myOffcanvas.addEventListener('show.bs.offcanvas', function () {
+        var params = {}
+        $.ajax({
+            url:"${headerPath }/getCartList.do",
+            type:"post",
+            dataType:"json",
+            data:params,
+            success:function(data) {
+            }
+        });
+    })
+</script>
 </c:if>

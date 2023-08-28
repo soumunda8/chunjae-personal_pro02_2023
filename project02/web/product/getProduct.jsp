@@ -104,7 +104,7 @@
                             dataType:"json",
                             data:params,
                             success:function(data) {
-                                $("#cartModal").toggle();
+                                $('#cartModal').modal('hide');
                             }
                         });
                     }

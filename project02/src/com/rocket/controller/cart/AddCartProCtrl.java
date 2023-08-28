@@ -39,15 +39,8 @@ public class AddCartProCtrl extends HttpServlet {
                 pass = false;
             }
 
-
             json.put("result", pass);
             out.println(json.toString());
-
-            /*if(cnt > 0) {
-                response.sendRedirect(request.getContextPath()+"/getProduct.do?prono="+prono);
-            } else {
-                out.println("<script>history.go(-1);</script>");
-            }*/
         } else {
             response.sendRedirect(request.getContextPath()+"/");
         }

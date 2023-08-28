@@ -29,12 +29,6 @@ public class getProductCtrl extends HttpServlet {
         List<Category> categoryHeaderList = headerCategoryDao.getCategoryList("product");
         request.setAttribute("categoryHeaderList", categoryHeaderList);
 
-        if(sid != null) {
-            CartListDAO headerCartListDao = new CartListDAO();
-            List<CartList> cartList = headerCartListDao.getCartList(sid);
-            request.setAttribute("cartList", cartList);
-        }
-
         int prono = Integer.parseInt(request.getParameter("prono"));
 
         if(prono != 0) {
