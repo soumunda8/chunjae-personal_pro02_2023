@@ -9,8 +9,8 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/idCheck.do")
-public class IdCheckCtrl extends HttpServlet {
+@WebServlet("/idCheckPro.do")
+public class IdCheckProCtrl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

@@ -20,7 +20,7 @@ public class ProductListAdminCtrl extends HttpServlet {
         if(sid != null && sid.equals("admin")) {
 
             ProductDAO dao = new ProductDAO();
-            List<Product> productList = dao.getProductList();
+            List<Product> productList = dao.getProductAdminList();
             request.setAttribute("productList", productList);
 
             request.setAttribute("page", "product");

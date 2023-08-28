@@ -34,3 +34,7 @@
 .sub01 {background:url("../image/sub/sub_visual01.jpg") center center/100% auto no-repeat fixed;padding:5% 0 0;}
 .sub01 > h2 {margin-bottom:5%;}
 .sub_content {background-color:#fff;}
+
+.card-deck {display:flex;}
+.card-deck > .card {height:400px;margin:0 10px 20px;}
+.card-deck > .card > img {height:250px;}

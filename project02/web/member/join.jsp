@@ -103,11 +103,11 @@
                                     }
                                     var params = { id:$("#id").val() }
                                     $.ajax({
-                                        url:"${path }/idCheck.do",
+                                        url:"${path }/idCheckPro.do",
                                         type:"post",
                                         dataType:"json",
                                         data:params,
-                                        success:function(data){   //console.log(data.result);
+                                        success:function(data){
                                             var idPass = data.result;
                                             if(idPass==false){
                                                 $("#idck").val("no");

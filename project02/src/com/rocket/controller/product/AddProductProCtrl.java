@@ -26,7 +26,7 @@ public class AddProductProCtrl extends HttpServlet {
         String msg = "";
         ServletContext application = request.getServletContext();
 
-        if(sid != null && sid.equals("admin")) {
+        if(sid != null) {
             try {
                 String saveDirectory = application.getRealPath("/storage"); //실제 저장 경로
                 int maxSize = 1024*1024*10;     //10MB

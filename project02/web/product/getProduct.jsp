@@ -23,9 +23,9 @@
         </nav>
         <div class="container product_area">
             <h3 class="text-center fs-1 my-5">${product.pname } 상세보기</h3>
-            <!---->
             <div class="container">
                 <div class="box_wrap">
+                    <input type="hidden" value="${product.prono }" id="proNo">
                     <table class="table" id="tb1">
                         <tbody>
                         <tr>
@@ -54,13 +54,18 @@
                             <td>${product.price } 원</td>
                         </tr>
                         <tr>
-                            <th>남은 수량</th>
+                            <th>갯수</th>
                             <td>
                                 <c:if test="${amount <= 0}">
                                     <span>절판</span>
                                 </c:if>
-                                <c:if test="${amount > 0}">
-                                    ${amount }
+                                <c:if test="${!empty sid && amount > 0 }">
+                                    <div class="">
+                                        <div class="" onclick="plusProduct()"><i class="fas fa-plus"></i></div>
+                                        <input class="txt-center" type="number" name="num-product" id="productNum" value="1">
+                                        <div class="" onclick="minusProduct()"><i class="fas fa-minus"></i></div>
+                                    </div>
+                                    <button type="button" class="inBtn" data-bs-toggle="modal" data-bs-target="#cartModal">장바구니 담기</button>
                                 </c:if>
                             </td>
                         </tr>
@@ -77,16 +82,51 @@
                     </table>
                     <div class="btn_group txt_right">
                         <a href="${path }/listProduct.do?cateno=${product.cateno }" class="inBtn">제품 목록</a>
-                        <c:if test="${!empty sid }">
-                            <a href="${path }/addPayment.do?pno=${product.prono }" class="inBtn inBtn2">구매하기</a>
-                            <a href="${path }/addCart.do?pno=${product.prono }" class="inBtn">장바구니 담기</a>
-                        </c:if>
                     </div>
                 </div>
-            <!---->
+                <script>
+                    function plusProduct(){
+                        var num = +$("#productNum").val() + 1;
+                        $("#productNum").val(num);
+                    }
+                    function minusProduct(){
+                        var num = +$("#productNum").val() - 1;
+                        if(num < 0) {num = 0;}
+                        $("#productNum").val(num);
+                    }
+                    function addCart() {
+                        var prono = $("#proNo").val();
+                        var amount = $("#productNum").val();
+                        var params = { prono:prono, amount:amount }
+                        $.ajax({
+                            url:"${path }/addCartPro.do",
+                            type:"post",
+                            dataType:"json",
+                            data:params,
+                            success:function(data) {
+                                $("#cartModal").toggle();
+                            }
+                        });
+                    }
+                </script>
+            </div>
         </div>
     </div>
-</div>
+
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h1 class="modal-title fs-5 text-center border-bottom py-2" id="cartModalLabel">${product.pname }</h1>
+                    <p class="text-center pt-4">장바구니에 담으시겠습니까?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                    <button type="button" class="btn btn-primary" onclick="addCart()">장바구니에 담기</button>
+                </div>
+            </div>
+        </div>
+    </div>
 <jsp:include page="../layout/footer.jsp" />
 </body>
 </html>

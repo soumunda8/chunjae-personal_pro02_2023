@@ -1,22 +1,15 @@
 package com.rocket.controller.admin;
 
-import com.rocket.dto.Category;
-import com.rocket.model.CategoryDAO;
 import com.rocket.model.ProductDAO;
 import com.rocket.vo.Product;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
+import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet("/productGetAdmin.do")
-public class ProductGetAdminCtrl extends HttpServlet {
+@WebServlet("/addReceiveAdmin.do")
+public class ReceiveAddAdminCtrl extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -30,12 +23,9 @@ public class ProductGetAdminCtrl extends HttpServlet {
             Product product = dao.getProduct(prono);
             request.setAttribute("product", product);
 
-            int amount = dao.getAmount(prono);
-            request.setAttribute("amount", amount);
-
             request.setAttribute("page", "product");
 
-            RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/productGet.jsp");
+            RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/admin/receiveAdd.jsp");
             view.forward(request, response);
         }else {
             response.sendRedirect(request.getContextPath()+"/");

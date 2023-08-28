@@ -21,7 +21,7 @@ public class DeleteCategoryProCtrl extends HttpServlet {
         String id = request.getParameter("id");
         String type = request.getParameter("par");
 
-        if(sid != null && sid.equals("admin")) {
+        if(sid != null) {
             CategoryDAO dao = new CategoryDAO();
             int cnt = dao.deleteCategory(id);
 

@@ -23,7 +23,7 @@ public class DeleteProductProCtrl extends HttpServlet {
 
         int prono = Integer.parseInt(request.getParameter("prono"));
 
-        if(sid != null && sid.equals("admin")) {
+        if(sid != null) {
             ProductDAO dao = new ProductDAO();
             Product product = dao.getProduct(prono);
 

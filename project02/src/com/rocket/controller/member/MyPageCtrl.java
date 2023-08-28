@@ -1,8 +1,12 @@
 package com.rocket.controller.member;
 
+import com.rocket.dto.Category;
 import com.rocket.dto.Member;
+import com.rocket.model.CartListDAO;
+import com.rocket.model.CategoryDAO;
 import com.rocket.model.MemberDAO;
 import com.rocket.util.AES256;
+import com.rocket.vo.CartList;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -15,6 +19,7 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.List;
 
 @WebServlet("/myPage.do")
 public class MyPageCtrl extends HttpServlet {
@@ -26,7 +31,15 @@ public class MyPageCtrl extends HttpServlet {
 
         String originPw = "";
 
+        CategoryDAO headerCategoryDao = new CategoryDAO();
+        List<Category> categoryHeaderList = headerCategoryDao.getCategoryList("product");
+        request.setAttribute("categoryHeaderList", categoryHeaderList);
+
         if(sid != null) {
+
+            CartListDAO headerCartListDao = new CartListDAO();
+            List<CartList> cartList = headerCartListDao.getCartList(sid);
+            request.setAttribute("cartList", cartList);
 
             MemberDAO dao = new MemberDAO();
             Member member = dao.getMember(sid);

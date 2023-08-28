@@ -41,7 +41,7 @@
                             <th>상품명</th>
                             <th>가격</th>
                             <th>카테고리</th>
-                            <th>비고</th>
+                            <th>판매여부</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -52,7 +52,8 @@
                                 <td>${product.price } 원</td>
                                 <td>${product.cname }</td>
                                 <td>
-                                    <button type="button" class="inBtn inBtn2" onclick="toDelete('${product.prono }')">삭제</button>
+                                    <c:if test="${product.useyn eq true}">판매중</c:if>
+                                    <c:if test="${product.useyn eq false}">판매중지</c:if>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -66,15 +67,6 @@
                     <div class="btn_group txt_right">
                         <a href="${path}/productAddAdmin.do" class="inBtn">등록</a>
                     </div>
-                    <script>
-                        function toDelete(prono) {
-                            var check = confirm("상품을 삭제하겠습니까?");
-                            if(check) {
-                                location.href = "${path }/deleteProductPro.do?prono="+prono;
-                            }
-                            return false;
-                        }
-                    </script>
                 </div>
             </div>
         </div>

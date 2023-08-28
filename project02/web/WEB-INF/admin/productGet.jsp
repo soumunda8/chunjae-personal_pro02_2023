@@ -39,11 +39,22 @@
                     </tr>
                     <tr>
                         <th scope="row">카테고리</th>
-                        <td>${category.cname}</td>
+                        <td>${product.cname}</td>
                     </tr>
                     <tr>
                         <th scope="row">상품가격</th>
                         <td>${product.price } 원</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">상품수량</th>
+                        <td>
+                            <c:if test="${amount <= 0}">
+                                <span>절판</span>
+                            </c:if>
+                            <c:if test="${amount > 0}">
+                                ${amount }
+                            </c:if>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">상품설명</th>
@@ -70,8 +81,10 @@
                     </tbody>
                 </table>
                 <div class="btn_group txt_right">
+                    <a href="${path }/deleteProductPro.do?prono=${product.prono }" class="inBtn">상품 삭제</a>
+                    <a href="${path }/noUseProductPro.do?prono=${product.prono }&useyn=${!product.useyn }" class="inBtn inBtn2">상품 판매<c:if test="${product.useyn eq true}"> 중지</c:if></a>
                     <a href="${path }/productModifyAdmin.do?prono=${product.prono }" class="inBtn">수정</a>
-                    <a href="${path }/productAddReceiveAdmin.do" class="inBtn inBtn2y">상품 입고</a>
+                    <a href="${path }/addReceiveAdmin.do?prono=${product.prono }" class="inBtn inBtn2">상품 입고</a>
                     <a href="${path }/productListAdmin.do" class="inBtn">목록</a>
                 </div>
             </div>

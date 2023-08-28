@@ -26,7 +26,7 @@ public class ModifyCategoryProCtrl extends HttpServlet {
         String cname = request.getParameter("cname");
         String cateno = request.getParameter("cateno");
 
-        if(sid != null && sid.equals("admin")) {
+        if(sid != null) {
             CategoryDAO dao = new CategoryDAO();
             Category category = new Category();
             category.setCateno(cateno);

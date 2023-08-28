@@ -24,16 +24,18 @@
         <div class="container product_area">
             <h3 class="text-center fs-1 my-5">${category.cname }</h3>
             <div class="page mb-5">
-                <c:forEach items="${productList }" var="product">
-                <div class="card col-2">
-                    <img class="card-img-top" src="${path }/storage/${product.thumbnail }" alt="${product.pname }">
-                    <div class="card-body">
-                        <h5 class="card-title" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${product.pname }</h5>
-                        <p class="card-text">가격 : ${product.price } 원</p>
-                        <a href="${path }/getProduct.do?prono=${product.prono }" class="btn btn-primary">상세보기</a>
-                    </div>
+                <div class="card-deck">
+                    <c:forEach items="${productList }" var="product">
+                        <div class="card col-2">
+                            <img class="card-img-top" src="${path }/storage/${product.thumbnail }" alt="${product.pname }">
+                            <div class="card-body">
+                                <h5 class="card-title" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${product.pname }</h5>
+                                <p class="card-text">가격 : ${product.price } 원</p>
+                                <a href="${path }/getProduct.do?prono=${product.prono }" class="btn btn-primary">상세보기</a>
+                            </div>
+                        </div>
+                    </c:forEach>
                 </div>
-                </c:forEach>
                 <c:if test="${empty productList}">
                     <div class="col-12 text-center">해당 상품이 존재하지 않습니다.</div>
                 </c:if>

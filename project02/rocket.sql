@@ -96,13 +96,14 @@ create table product(
     plist varchar(2000),                            -- 상품 목차
     thumbnail varchar(200),                			-- 상품 섬네일
     videosub varchar(200),			                -- 비디오 존재시 제목
+    useyn boolean default true,                    	-- 판매여부
     resdate timestamp default current_timestamp     -- 상품 등록일
 );
 
 -- 상품 뷰 생성
 CREATE VIEW productList AS (
     select p.prono as prono, p.cateno as cateno, p.pname as pname, p.price as price, p.pcomment as pcomment,
-           p.plist as plist, p.thumbnail as thumbnail, p.videosub as videosub, p.resdate as resdate, c.cname as cname
+          p.plist as plist, p.thumbnail as thumbnail, p.videosub as videosub, p.useyn as useyn, p.resdate as resdate, c.cname as cname
     from product p, category c
     where p.cateno = c.cateno
     order by p.prono desc
@@ -132,49 +133,52 @@ create view profit as (select prono, sum(sprice*amount) as tot from serve group 
 -- 재고 처리 뷰 생성
 create view inventory as (select a.prono as prono, (sum(a.amount)-sum(b.amount)) as amount from receive a, serve b where a.prono=b.prono group by a.prono, b.prono);
 
--- 배송(delivery) 테이블 - X
+-- 배송(delivery) 테이블 - O
 create table delivery(
     dno serial primary key,                             -- 배송 번호 : 자동증가
-    sno integer not null, cid varchar(20) not null,     -- 출고 번호
+    payno integer not null,                             -- 결제 번호
+    cid varchar(20) not null,                           -- 회원 아이디
     daddr varchar(300) not null,                        -- 배송 주소
-    custel varchar(13) not null,                        -- 고객 번호
+    custel varchar(13) not null,                        -- 고객 연락처
     pcom varchar(100),                                  -- 배송 번호
-    ptel varchar(13),
-    pstate integer default 0,
-    sdate timestamp default current_timestamp,
-    rdate varchar(13),
-    bcode varchar(30)
+    ptel varchar(13),                                   -- 배송회사
+    pstate integer default 0,                           -- 배송상태 - [0:배송전 | 1:배송중 | 2:도착 | 3:구매결정]
+    sdate timestamp default current_timestamp,          -- 배송 등록일
+    rdate varchar(13),                                  -- 배송 완료일
+    bcode varchar(30)                                   -- 화물코드
 );
 
--- 결제(payment) 테이블 - X
+-- 결제(payment) 테이블 - O
 create table payment(
-    sno serial primary key,
-    cid varchar(20) not null,
-    prono integer not null,
-    amount integer default 1,
-    pmethod varchar(100),
-    pcom varchar(100),
-    cnum varchar(100),
-    payprice integer default 1000,
-    dno varchar(100)
+    payno serial primary key,           -- 결제 번호 : 자동증가
+    cid varchar(20) not null,           -- 회원 아이디
+    prono integer not null,             -- 상품 번호
+    amount integer default 1,           -- 결제 수량
+    pmethod varchar(100),               -- 결제 방법
+    pcom varchar(100),                  -- 결제 대행사
+    cnum varchar(100),                  -- 결제카드(계좌)번호
+    payprice integer default 1000,      -- 결제 금액
+    dno varchar(100)                    -- 배송 번호
 );
 
--- 장바구니(cart) 테이블 - X
+-- 장바구니(cart) 테이블 - O
 create table cart(
-    cartno serial primary key,
-    cid varchar(20) not null,
-    prono integer not null,
-    amount integer not null
+    cartno serial primary key,          -- 장바구니 번호 : 자동증가
+    cid varchar(20) not null,           -- 회원 아이디
+    prono integer not null,             -- 상품 번호
+    amount integer not null             -- 상품 수량
 );
 
--- 리뷰(review) 테이블 - X
+create view cartList as (select p.prono as prono, p.pname as pname, p.price as price, p.thumbnail as thumbnail, sum(c.amount) as amount, c.cid as cid from product p, cart c where p.prono = c.prono group by c.cid, p.prono order by p.prono desc)
+
+-- 리뷰(review) 테이블 - O
 create table review(
-    rno serial primary key,
-    sno integer not null,
-    cid varchar(20) not null,
-    content varchar(500) not null,
-    star integer default 5,
-    resdate timestamp default current_timestamp
+    rno serial primary key,                         -- 리뷰 번호 : 자동증가
+    prono integer not null,                         -- 상품 번호
+    cid varchar(20) not null,                       -- 회원 아이디
+    content varchar(500) not null,                  -- 리뷰 내역
+    star integer default 10,                        -- 리뷰 별점
+    resdate timestamp default current_timestamp     -- 리뷰 등록일
 );
 
 -- 아래 참조하면서 진행하기
@@ -200,11 +204,11 @@ insert into delivery values (default, ?, ?, ?, ?, '','',default,default,'','');
 delete from cart where cartno=?;
 
 -- 반품 처리 패턴(배송전이면 반품 가능)
-delete from payment where sno=?;
+delete from payment where payno=?;
 insert into receive values (default, ?, ?, ?, default);
 delete from serve where sno=?;
 insert into cart values (default, ?, ?, ?);
-delete from delivery where sno=?;
+delete from delivery where payno=?;
 
 -- 배송처리
 update delivery set pcom=?, ptel=?, pstate=1, sdate=current_timestamp, rdate=?, bcode=? where dno=?;

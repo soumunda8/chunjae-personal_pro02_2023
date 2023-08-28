@@ -11,6 +11,7 @@ public class Product {
     private String thumbnail;
     private String videosub;
     private String cname;
+    private boolean useyn;
     private String resdate;
 
     public int getProno() {
@@ -85,6 +86,14 @@ public class Product {
         this.cname = cname;
     }
 
+    public boolean isUseyn() {
+        return useyn;
+    }
+
+    public void setUseyn(boolean useyn) {
+        this.useyn = useyn;
+    }
+
     public String getResdate() {
         return resdate;
     }
@@ -105,6 +114,7 @@ public class Product {
                 ", thumbnail='" + thumbnail + '\'' +
                 ", videosub='" + videosub + '\'' +
                 ", cname='" + cname + '\'' +
+                ", useyn='" + useyn + '\'' +
                 ", resdate='" + resdate + '\'' +
                 '}';
     }
