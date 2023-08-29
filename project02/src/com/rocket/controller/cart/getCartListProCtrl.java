@@ -35,6 +35,17 @@ public class getCartListProCtrl extends HttpServlet {
             json.put("cartList", cartList);
             out.println(json.toString());
 
+            /*JsonObject json1 = new JsonObject();
+            json1.put("첫번째": 1);
+            JsonObject json2 = new JsonObject();
+            json1.put("두번째": 2);
+
+            //JsonArray 생성
+            JsonArray jArray = new JsonArray();
+            //JsonArray에 json추가(put)
+            jArray.put(json1);
+            jArray.put(json2);*/
+
         } else {
             response.sendRedirect(request.getContextPath() + "/");
         }
