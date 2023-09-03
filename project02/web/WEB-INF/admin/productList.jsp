@@ -38,7 +38,7 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>상품명</th>
+                            <th class="table_title">상품명</th>
                             <th>가격</th>
                             <th>카테고리</th>
                             <th>판매여부</th>
@@ -48,7 +48,7 @@
                         <c:forEach var="product" items="${productList }" varStatus="status">
                             <tr>
                                 <td>${status.count }</td>
-                                <td><a href="${path}/productGetAdmin.do?prono=${product.prono }">${product.pname}</a></td>
+                                <td class="table_title"><a href="${path}/productGetAdmin.do?prono=${product.prono }">${product.pname}</a></td>
                                 <td>${product.price } 원</td>
                                 <td>${product.cname }</td>
                                 <td>

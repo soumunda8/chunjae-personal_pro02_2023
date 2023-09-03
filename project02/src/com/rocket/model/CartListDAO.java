@@ -27,7 +27,7 @@ public class CartListDAO {
                 cart.setPrice(rs.getInt("price"));
                 cart.setThumbnail(rs.getString("thumbnail"));
                 cart.setAmount(rs.getInt("amount"));
-                cart.setCid(rs.getString("cid"));
+                cart.setAuthor(rs.getString("author"));
                 cartList.add(cart);
             }
         } catch (SQLException e) {

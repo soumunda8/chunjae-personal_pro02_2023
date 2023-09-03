@@ -1,14 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="footerPath" value="<%=request.getContextPath() %>" />
+<c:set var="path" value="<%=request.getContextPath() %>" />
 <footer class="text-center text-white" id="ft">
     <section class="container">
         <div class="row text-center d-flex justify-content-center pt-4">
-            <div class="col-md-2"><h6 class="text-uppercase font-weight-bold"><a href="${footerPath }/" class="fs-6 text-white">회원약관</a></h6></div>
-            <div class="col-md-2"><h6 class="text-uppercase font-weight-bold"><a href="${footerPath }/" class="fs-6 text-white">개인정보처리방침</a></h6></div>
-            <div class="col-md-2"><h6 class="text-uppercase font-weight-bold"><a href="${footerPath }/" class="fs-6 text-white">이메일수집거부</a></h6></div>
-            <div class="col-md-2"><h6 class="text-uppercase font-weight-bold"><a href="${footerPath }/" class="fs-6 text-white">고객센터</a></h6></div>
+            <div class="col-md-2"><h6 class="text-uppercase font-weight-bold"><a href="${path }/" class="fs-6 text-white">회원약관</a></h6></div>
+            <div class="col-md-2"><h6 class="text-uppercase font-weight-bold"><a href="${path }/" class="fs-6 text-white">개인정보처리방침</a></h6></div>
+            <div class="col-md-2"><h6 class="text-uppercase font-weight-bold"><a href="${path }/" class="fs-6 text-white">이메일수집거부</a></h6></div>
+            <div class="col-md-2"><h6 class="text-uppercase font-weight-bold"><a href="${path }/" class="fs-6 text-white">고객센터</a></h6></div>
         </div>
     </section>
     <hr class="my-3" />

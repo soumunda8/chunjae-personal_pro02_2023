@@ -14,7 +14,7 @@
 <div class="contents sub01">
     <h2 class="text-center text-white fw-bold">상품</h2>
     <div class="sub_content pb-5">
-        <nav class="container pt-2" style="--bs-breadcrumb-divider:url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+        <nav class="container pt-2" style="--bs-breadcrumb-divider:'>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="${path }/" class="text-end"><i class="fas fa-home"></i></a></li>
                 <li class="breadcrumb-item"><a href="${path }/" class="text-end">상품</a></li>
@@ -26,94 +26,129 @@
             <div class="container">
                 <div class="box_wrap">
                     <input type="hidden" value="${product.prono }" id="proNo">
-                    <table class="table" id="tb1">
-                        <tbody>
-                        <tr>
-                            <td colspan="2">
-                                <c:if test="${!empty product.thumbnail}">
-                                    <img src="${path }/storage/${product.thumbnail }" style="max-width:300px;" alt="대표 이미지">
-                                </c:if>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>도서명</th>
-                            <td>${product.pname }</td>
-                        </tr>
-                        <tr>
-                            <th>도서 설명</th>
-                            <td>
-                                <pre>${product.pcomment }</pre>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>도서 목차</th>
-                            <td><pre>${product.plist }</pre></td>
-                        </tr>
-                        <tr>
-                            <th>가격</th>
-                            <td>${product.price } 원</td>
-                        </tr>
-                        <tr>
-                            <th>갯수</th>
-                            <td>
-                                <c:if test="${amount <= 0}">
-                                    <span>절판</span>
-                                </c:if>
-                                <c:if test="${!empty sid && amount > 0 }">
-                                    <div class="">
-                                        <div class="" onclick="plusProduct()"><i class="fas fa-plus"></i></div>
-                                        <input class="txt-center" type="number" name="num-product" id="productNum" value="1">
-                                        <div class="" onclick="minusProduct()"><i class="fas fa-minus"></i></div>
-                                    </div>
-                                    <button type="button" class="inBtn" data-bs-toggle="modal" data-bs-target="#cartModal">장바구니 담기</button>
-                                </c:if>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <c:if test="${!empty product.videosub}">
-                                    <video id="video" style="max-width:300px" controls autoplay>
-                                        <source src="${path }/storage/${product.videosub}" type="video/mp4" />
-                                    </video>
-                                </c:if>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <ul class="productDetail">
+                        <li class="pay_list">
+                            <div class="pay_thumbnail"><img src="${path }/storage/${product.thumbnail }" alt="${product.pname }"></div>
+                            <div class="pay_detail">
+                                <table class="table">
+                                    <colgroup>
+                                        <col style="width:20%;">
+                                        <col style="width:80%;">
+                                    </colgroup>
+                                    <tbody>
+                                    <tr>
+                                        <th>도서명</th>
+                                        <td class="table_title">${product.pname }</td>
+                                    </tr>
+                                    <tr>
+                                        <th>가격</th>
+                                        <td class="table_title">${product.price }</td>
+                                    </tr>
+                                    <c:if test="${!empty sid }">
+                                    <tr>
+                                        <th>갯수</th>
+                                        <td class="table_title">
+                                            <c:if test="${amount <= 0}">
+                                                <span>절판</span>
+                                            </c:if>
+                                            <c:if test="${amount > 0 }">
+                                                <div class="amountBtnArea">
+                                                    <div class="amountBtn amountMinus" onclick="minusProduct(1)"><i class="fas fa-minus"></i></div>
+                                                    <input class="txt-center amountText" type="text" id="productNum1" value="1" readonly>
+                                                    <div class="amountBtn amountPlus" onclick="plusProduct(1)"><i class="fas fa-plus fa-xs"></i></div>
+                                                </div>
+                                                <button type="button" class="inBtn" onclick="addCart('${path }', 1)">장바구니 담기</button>
+                                                <%--<button type="button" class="inBtn" data-bs-toggle="modal" data-bs-target="#cartModal">장바구니 담기</button>--%>
+                                            </c:if>
+                                        </td>
+                                    </tr>
+                                    </c:if>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-tabs my-5" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="productInfoArea-tab" data-bs-toggle="tab" data-bs-target="#productInfoArea" type="button" role="tab" aria-controls="productInfoArea" aria-selected="true">도서 상세정보</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="productReviewArea-tab" data-bs-toggle="tab" data-bs-target="#productReviewArea" type="button" role="tab" aria-controls="productReviewArea" aria-selected="false">도서 리뷰</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="productInfoArea" role="tabpanel" aria-labelledby="productInfoArea-tab">
+                            <table class="table productInfo">
+                                <tbody>
+                                <tr>
+                                    <th>도서 목차</th>
+                                    <td>
+                                        <pre>${product.plist }</pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>도서 설명</th>
+                                    <td>
+                                        <c:if test="${!empty product.videosub}">
+                                            <video id="video" style="max-width:300px;margin-bottom:20px;" controls autoplay>
+                                                <source src="${path }/storage/${product.videosub}" type="video/mp4" />
+                                            </video>
+                                        </c:if>
+                                        <pre>${product.pcomment }</pre>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane fade" id="productReviewArea" role="tabpanel" aria-labelledby="productReviewArea-tab">
+                            <c:if test="${!empty reviewList}">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>리뷰내용</th>
+                                        <th>별점</th>
+                                        <th>비고</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach items="${reviewList }" var="review" varStatus="status">
+                                        <tr>
+                                            <td>${status.count }</td>
+                                            <td>${review.content }</td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${review.star eq 5}">★★★★★</c:when>
+                                                    <c:when test="${review.star eq 4}">★★★★</c:when>
+                                                    <c:when test="${review.star eq 3}">★★★</c:when>
+                                                    <c:when test="${review.star eq 2}">★★</c:when>
+                                                    <c:when test="${review.star eq 1}">★</c:when>
+                                                    <c:otherwise>0</c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                            <td>
+                                                <c:if test="${sid eq 'admin' || sid eq review.author}">
+                                                    <a href="${path }/deleteReviewPro.do?rno=${review.rno }&dno=0">리뷰삭제</a>
+                                                </c:if>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </c:if>
+                            <c:if test="${empty reviewList}">
+                                <p class="text-center">등록된 리뷰가 없습니다.</p>
+                            </c:if>
+                        </div>
+                    </div>
                     <div class="btn_group txt_right">
                         <a href="${path }/listProduct.do?cateno=${product.cateno }" class="inBtn">제품 목록</a>
                     </div>
                 </div>
-                <script>
-                    function plusProduct(){
-                        var num = +$("#productNum").val() + 1;
-                        $("#productNum").val(num);
-                    }
-                    function minusProduct(){
-                        var num = +$("#productNum").val() - 1;
-                        if(num < 0) {num = 0;}
-                        $("#productNum").val(num);
-                    }
-                    function addCart() {
-                        var prono = $("#proNo").val();
-                        var amount = $("#productNum").val();
-                        var params = { prono:prono, amount:amount }
-                        $.ajax({
-                            url:"${path }/addCartPro.do",
-                            type:"post",
-                            dataType:"json",
-                            data:params,
-                            success:function(data) {
-                                $('#cartModal').modal('hide');
-                            }
-                        });
-                    }
-                </script>
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <%--<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
@@ -126,7 +161,8 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--%>
+    <script src="${path }/js/common.js"></script>
 <jsp:include page="../layout/footer.jsp" />
 </body>
 </html>

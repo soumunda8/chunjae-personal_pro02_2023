@@ -7,7 +7,8 @@ public class CartList {
     private int price;
     private String thumbnail;
     private int amount;
-    private String cid;
+    private String author;
+    private int canAmount;
 
     public int getProno() {
         return prono;
@@ -49,12 +50,20 @@ public class CartList {
         this.amount = amount;
     }
 
-    public String getCid() {
-        return cid;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setCid(String cid) {
-        this.cid = cid;
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public int getCanAmount() {
+        return canAmount;
+    }
+
+    public void setCanAmount(int canAmount) {
+        this.canAmount = canAmount;
     }
 
     @Override
@@ -65,7 +74,7 @@ public class CartList {
                 ", price=" + price +
                 ", thumbbnail='" + thumbnail + '\'' +
                 ", amount=" + amount +
-                ", cid=" + cid +
+                ", author=" + author +
                 '}';
     }
 

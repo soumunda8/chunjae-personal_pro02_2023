@@ -25,8 +25,7 @@
 .join_agree .check_area {margin:20px 0 50px;}
 .join_agree #in_btn1 {background-color:var(--main-color);color:#fff;padding:0 3.5rem;line-height:3;}
 
-@media (max-width: 450px) {
-    .login_area .h-custom {height:100%;}
+@media (max-width:450px) {.login_area .h-custom {height:100%;}
 }
 
 .sub_content {min-height:70vh;}/* 삭제 예정 */
@@ -38,3 +37,30 @@
 .card-deck {display:flex;}
 .card-deck > .card {height:400px;margin:0 10px 20px;}
 .card-deck > .card > img {height:250px;}
+
+.amountBtnArea {display:inline-block;border:1px solid #333;box-sizing:border-box;}
+.amountBtn, .amountText {display:inline-block;height:30px;box-sizing:border-box;text-align:center;line-height:28px;vertical-align:top;}
+.amountBtn {width:30px;}
+.amountBtn.amountPlus {border-left:1px solid #333;margin-left:-4px;}
+.amountBtn.amountMinus {border-right:1px solid #333;}
+.amountText {background-color:#efefef;margin-left:-3px;border:none;width:50px;}
+
+.no_buy {font-size:0.8em;color:red;font-weight:200;}
+
+.table_title {text-align:left;}
+
+.pay_list {border-top:2px solid #333;padding:10px 0;box-sizing:border-box;border-bottom:1px solid #333;}
+.pay_thumbnail {display:inline-block;vertical-align:middle;width:210px;}
+.pay_thumbnail img {height:200px;width:auto;}
+.pay_detail {display:inline-block;vertical-align:middle;width:calc(100% - 230px);margin-left:16px;text-align:left;}
+.pay_detail p {line-height:1;}
+.pay_detail .pay_title {font-size:2.5em;font-weight:900;}
+.pay_detail .pay_title span {border:1px solid #555;box-sizing:border-box;display:inline-block;padding:5px 10px;background-color:#ddd;vertical-align:middle;font-size:0.4em;font-weight:300;}
+
+.productDetail .pay_list {border:none;}
+.productDetail .pay_detail th {text-align:center;}
+
+.productInfo th {vertical-align:top;}
+.productInfo pre {margin-bottom:0;}
+
+.txt_center {text-align:center;}

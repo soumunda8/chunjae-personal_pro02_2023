@@ -73,12 +73,134 @@ public class ProductDAO {
         return productList;
     }
 
+    public List<Product> getProductNew() {
+        List<Product> productList = new ArrayList<>();
+        DBConnect con = new PostGreCon();
+        try {
+            conn = con.connect();
+            pstmt = conn.prepareStatement(DBConnect.PRODUCT_SELECT_NEW);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProno(rs.getInt("prono"));
+                product.setCateno(rs.getString("cateno"));
+                product.setPname(rs.getString("pname"));
+                product.setPrice(rs.getInt("price"));
+                product.setPcomment(rs.getString("pcomment"));
+                product.setPlist(rs.getString("plist"));
+                product.setThumbnail(rs.getString("thumbnail"));
+                product.setVideosub(rs.getString("videosub"));
+                product.setCname(rs.getString("cname"));
+                product.setUseyn(rs.getBoolean("useyn"));
+                product.setResdate(rs.getString("resdate"));
+                productList.add(product);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            con.close(rs, pstmt, conn);
+        }
+        return productList;
+    }
+
+    public List<Product> getProductBest() {
+        List<Product> productList = new ArrayList<>();
+        DBConnect con = new PostGreCon();
+        try {
+            conn = con.connect();
+            pstmt = conn.prepareStatement(DBConnect.PRODUCT_SELECT_BEST);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProno(rs.getInt("prono"));
+                product.setCateno(rs.getString("cateno"));
+                product.setPname(rs.getString("pname"));
+                product.setPrice(rs.getInt("price"));
+                product.setPcomment(rs.getString("pcomment"));
+                product.setPlist(rs.getString("plist"));
+                product.setThumbnail(rs.getString("thumbnail"));
+                product.setVideosub(rs.getString("videosub"));
+                product.setCname(rs.getString("cname"));
+                product.setUseyn(rs.getBoolean("useyn"));
+                product.setResdate(rs.getString("resdate"));
+                productList.add(product);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            con.close(rs, pstmt, conn);
+        }
+        return productList;
+    }
+
     public List<Product> getProductCategory(String cateno) {
         List<Product> productList = new ArrayList<>();
         DBConnect con = new PostGreCon();
         try {
             conn = con.connect();
             pstmt = conn.prepareStatement(DBConnect.PRODUCT_SELECT_CATEGORY);
+            pstmt.setString(1, cateno);
+            rs = pstmt.executeQuery();
+            while(rs.next()) {
+                Product product = new Product();
+                product.setProno(rs.getInt("prono"));
+                product.setCateno(rs.getString("cateno"));
+                product.setPname(rs.getString("pname"));
+                product.setPrice(rs.getInt("price"));
+                product.setPcomment(rs.getString("pcomment"));
+                product.setPlist(rs.getString("plist"));
+                product.setThumbnail(rs.getString("thumbnail"));
+                product.setVideosub(rs.getString("videosub"));
+                product.setCname(rs.getString("cname"));
+                product.setUseyn(rs.getBoolean("useyn"));
+                product.setResdate(rs.getString("resdate"));
+                productList.add(product);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            con.close(rs, pstmt, conn);
+        }
+        return productList;
+    }
+
+    public List<Product> getProductCategoryNew(String cateno) {
+        List<Product> productList = new ArrayList<>();
+        DBConnect con = new PostGreCon();
+        try {
+            conn = con.connect();
+            pstmt = conn.prepareStatement(DBConnect.PRODUCT_SELECT_CATEGORY_NEW);
+            pstmt.setString(1, cateno);
+            rs = pstmt.executeQuery();
+            while(rs.next()) {
+                Product product = new Product();
+                product.setProno(rs.getInt("prono"));
+                product.setCateno(rs.getString("cateno"));
+                product.setPname(rs.getString("pname"));
+                product.setPrice(rs.getInt("price"));
+                product.setPcomment(rs.getString("pcomment"));
+                product.setPlist(rs.getString("plist"));
+                product.setThumbnail(rs.getString("thumbnail"));
+                product.setVideosub(rs.getString("videosub"));
+                product.setCname(rs.getString("cname"));
+                product.setUseyn(rs.getBoolean("useyn"));
+                product.setResdate(rs.getString("resdate"));
+                productList.add(product);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            con.close(rs, pstmt, conn);
+        }
+        return productList;
+    }
+
+    public List<Product> getProductCategoryBest(String cateno) {
+        List<Product> productList = new ArrayList<>();
+        DBConnect con = new PostGreCon();
+        try {
+            conn = con.connect();
+            pstmt = conn.prepareStatement(DBConnect.PRODUCT_SELECT_CATEGORY__BEST);
             pstmt.setString(1, cateno);
             rs = pstmt.executeQuery();
             while(rs.next()) {

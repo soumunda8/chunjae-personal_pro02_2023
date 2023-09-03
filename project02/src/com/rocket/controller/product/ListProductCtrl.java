@@ -23,8 +23,8 @@ public class ListProductCtrl extends HttpServlet {
         String sid = (String) session.getAttribute("sid");
 
         CategoryDAO headerCategoryDao = new CategoryDAO();
-        List<Category> categoryHeaderList = headerCategoryDao.getCategoryList("product");
-        request.setAttribute("categoryHeaderList", categoryHeaderList);
+        List<Category> headerMenuCategoryList = headerCategoryDao.getCategoryList("product");
+        request.setAttribute("headerMenuCategoryList", headerMenuCategoryList);
 
         if(sid != null) {
             CartListDAO headerCartListDao = new CartListDAO();

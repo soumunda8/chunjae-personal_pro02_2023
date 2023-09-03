@@ -101,7 +101,7 @@
                                         alert("아이디를 입력하지 않았습니다.");
                                         $("#id").focus();                return;
                                     }
-                                    var params = { id:$("#id").val() }
+                                    var params = { "id":$("#id").val() }
                                     $.ajax({
                                         url:"${path }/idCheckPro.do",
                                         type:"post",
@@ -138,23 +138,8 @@
                                         return false;
                                     }
                                 }
-                                function findAddr(){
-                                    new daum.Postcode({
-                                        oncomplete:function(data){
-                                            console.log(data);
-                                            var roadAddr = data.roadAddress;
-                                            var jibunAddr = data.jibunAddress;
-                                            document.getElementById("postcode").value = data.zonecode;
-                                            if(roadAddr !== ''){
-                                                document.getElementById("address1").value = roadAddr;
-                                            } else if(jibunAddr !== ''){
-                                                document.getElementById("address1").value = jibunAddr;
-                                            }
-                                            document.getElementById("address2").focus();
-                                        }
-                                    }).open();
-                                }
                             </script>
+                            <script src="${path }/js/common.js"></script>
                             <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
                         </div>
                     </div>

@@ -1,10 +1,10 @@
 package com.rocket.controller.product;
 
 import com.rocket.dto.Category;
-import com.rocket.model.CartListDAO;
+import com.rocket.dto.Review;
 import com.rocket.model.CategoryDAO;
 import com.rocket.model.ProductDAO;
-import com.rocket.vo.CartList;
+import com.rocket.model.ReviewDAO;
 import com.rocket.vo.Product;
 
 import javax.servlet.RequestDispatcher;
@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/getProduct.do")
-public class getProductCtrl extends HttpServlet {
+public class GetProductCtrl extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -26,8 +26,8 @@ public class getProductCtrl extends HttpServlet {
         String sid = (String) session.getAttribute("sid");
 
         CategoryDAO headerCategoryDao = new CategoryDAO();
-        List<Category> categoryHeaderList = headerCategoryDao.getCategoryList("product");
-        request.setAttribute("categoryHeaderList", categoryHeaderList);
+        List<Category> headerMenuCategoryList = headerCategoryDao.getCategoryList("product");
+        request.setAttribute("headerMenuCategoryList", headerMenuCategoryList);
 
         int prono = Integer.parseInt(request.getParameter("prono"));
 
@@ -35,6 +35,10 @@ public class getProductCtrl extends HttpServlet {
             ProductDAO dao = new ProductDAO();
             Product product = dao.getProduct(prono);
             int amount = dao.getAmount(prono);
+
+            ReviewDAO reviewDAO = new ReviewDAO();
+            List<Review> reviewList = reviewDAO.getReviewList(prono);
+            request.setAttribute("reviewList", reviewList);
 
             request.setAttribute("product", product);
             request.setAttribute("amount", amount);

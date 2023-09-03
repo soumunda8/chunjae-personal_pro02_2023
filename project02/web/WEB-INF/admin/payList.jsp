@@ -24,60 +24,48 @@
             <jsp:include page="../../layout/adminHeader.jsp" />
             <div class="col-10 pt-3 px-4 border-start">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                    <h1 class="h2">카테고리 관리</h1>
+                    <h1 class="h2">주문 관리</h1>
                 </div>
-                <ul class="nav nav-tabs my-3">
-                    <li class="nav-item">
-                        <a class="nav-link no_btn <c:if test="${type eq 'board'}">active</c:if>" aria-current="page" href="${path }/categoryListAdmin.do?type=board">게시판</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link no_btn <c:if test="${type eq 'product'}">active</c:if>" href="${path }/categoryListAdmin.do?type=product">상품</a>
-                    </li>
-                </ul>
                 <div class="table-responsive text-center">
                     <table class="table table-striped table-sm">
                         <colgroup>
                             <col style="width:10%">
                             <col style="width:40%">
-                            <col style="width:auto">
+                            <col style="width:20%">
+                            <col style="width:10%">
                         </colgroup>
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th class="table_title">카테고리명</th>
+                            <th class="table_title">배송</th>
+                            <th>배송상태</th>
                             <th>비고</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="category" items="${categoryList }" varStatus="status">
+                        <c:forEach var="delivery" items="${deliveryList }" varStatus="status">
                             <tr>
                                 <td>${status.count }</td>
-                                <td class="table_title">${category.cname}</td>
+                                <td class="table_title"><a href="${path }/payGetAdmin.do?dno=${delivery.dno }">${delivery.author } 님의 주문내역</a></td>
                                 <td>
-                                    <a href="${path}/categoryModifyAdmin.do?id=${category.cateno }" class="inBtn">수정</a>
-                                    <button type="button" class="inBtn inBtn2" onclick="toDelete('${category.cateno }', '${category.par }')">삭제</button>
+                                    <c:choose>
+                                        <c:when test="${delivery.status eq 0 }">배송전</c:when>
+                                        <c:when test="${delivery.status eq 1 }">배송중</c:when>
+                                        <c:when test="${delivery.status eq 2 }">배송완료</c:when>
+                                        <c:when test="${delivery.status eq 3 }">구매확정</c:when>
+                                        <c:otherwise>구매취소</c:otherwise>
+                                    </c:choose>
                                 </td>
+                                <td></td>
                             </tr>
                         </c:forEach>
-                        <c:if test="${categoryList.size() < 1 }">
+                        <c:if test="${deliveryList.size() < 1 }">
                             <tr>
-                                <td colspan="3">등록된 카테고리가 없습니다.</td>
+                                <td colspan="4">등록된 주문이 없습니다.</td>
                             </tr>
                         </c:if>
                         </tbody>
                     </table>
-                    <div class="btn_group txt_right">
-                        <a href="${path}/categoryAddAdmin.do?type=${type }" class="inBtn">등록</a>
-                    </div>
-                    <script>
-                        function toDelete(id, par) {
-                            var check = confirm("카테고리를 삭제하겠습니까?");
-                            if(check) {
-                                location.href = "${path }/deleteCategoryPro.do?id="+id+"&par="+par;
-                            }
-                            return false;
-                        }
-                    </script>
                 </div>
             </div>
         </div>

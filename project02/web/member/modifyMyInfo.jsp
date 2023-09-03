@@ -14,14 +14,23 @@
 <div class="contents sub01">
     <h2 class="text-center text-white fw-bold">마이페이지</h2>
     <div class="sub_content pb-5">
-        <nav class="container pt-2" style="--bs-breadcrumb-divider:url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+        <nav class="container pt-2" style="-bs-breadcrumb-divider:'>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="${path }/" class="text-end"><i class="fas fa-home"></i></a></li>
                 <li class="breadcrumb-item"><a href="${path }/myPage.do" class="text-end">마이페이지</a></li>
+                <li class="breadcrumb-item"><a href="${path }/myPage.do" class="text-end">내정보</a></li>
                 <li class="breadcrumb-item active" aria-current="page" class="text-end">회원정보수정</li>
             </ol>
         </nav>
         <div class="container">
+            <ul class="nav nav-tabs my-5">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="${path }/myPage.do">내정보</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${path }/listPayProduct.do">나의 배송내역</a>
+                </li>
+            </ul>
             <h3 class="text-center fs-1 my-5">회원정보수정</h3>
             <div class="page mb-5">
                 <form action="${path }/modifyMyInfoPro.do" method="post">
@@ -71,24 +80,7 @@
                         <a href="${path }/myPage.do" class="inBtn inBtn2">마이페이지로 이동</a>
                     </div>
                 </form>
-                <script>
-                    function findAddr(){
-                        new daum.Postcode({
-                            oncomplete:function(data){
-                                console.log(data);
-                                var roadAddr = data.roadAddress;
-                                var jibunAddr = data.jibunAddress;
-                                document.getElementById("postcode").value = data.zonecode;
-                                if(roadAddr !== ''){
-                                    document.getElementById("address1").value = roadAddr;
-                                } else if(jibunAddr !== ''){
-                                    document.getElementById("address1").value = jibunAddr;
-                                }
-                                document.getElementById("address2").focus();
-                            }
-                        }).open();
-                    }
-                </script>
+                <script src="${path }/js/common.js"></script>
                 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
             </div>
         </div>

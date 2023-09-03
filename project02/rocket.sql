@@ -128,92 +128,64 @@ create table serve(
 );
 
 -- 전체 이익 통계 뷰 작성
-create view profit as (select prono, sum(sprice*amount) as tot from serve group by prono EXCEPT select prono, sum(rprice*amount) as tot from receive group by prono);
+create view profit as (select a.prono as prono, sum(a.tot - b.tot) AS tot from serveProfit a, receiveProfit b where a.prono = b.prono group by a.prono);
+create view serveProfit as (select prono, sum(sprice*amount) as tot from serve group by prono);
+create view receiveProfit as (select prono, sum(rprice*amount) as tot from receive group by prono);
 
 -- 재고 처리 뷰 생성
-create view inventory as (select a.prono as prono, (sum(a.amount)-sum(b.amount)) as amount from receive a, serve b where a.prono=b.prono group by a.prono, b.prono);
-create view sel1 as (select prono, sum(amount) as amount from serve group by prono)
-create view sel2 as (select prono, sum(amount) as amount from receive group by prono)
+create view inventory as (select a.prono as prono, (a.amount-b.amount) AS amount from receiveInventory a, serveInventory b  WHERE a.prono = b.prono)
+create view serveInventory as (select prono, sum(amount) as amount from serve group by prono);
+create view receiveInventory as (select prono, sum(amount) as amount from receive group by prono);
 
 -- 배송(delivery) 테이블 - O
 create table delivery(
-    dno serial primary key,                             -- 배송 번호 : 자동증가
-    payno integer not null,                             -- 결제 번호
-    cid varchar(20) not null,                           -- 회원 아이디
-    daddr varchar(300) not null,                        -- 배송 주소
-    custel varchar(13) not null,                        -- 고객 연락처
-    pcom varchar(100),                                  -- 배송 번호
-    ptel varchar(13),                                   -- 배송회사
-    pstate integer default 0,                           -- 배송상태 - [0:배송전 | 1:배송중 | 2:도착 | 3:구매결정]
-    sdate timestamp default current_timestamp,          -- 배송 등록일
-    rdate varchar(13),                                  -- 배송 완료일
-    bcode varchar(30)                                   -- 화물코드
+     dno serial primary key,                             -- 배송 번호 : 자동증가
+     author varchar(20) not null,                        -- 구매 고객 아이디
+     cusname varchar(300) not null,                      -- 배송 고객 이름
+     custel varchar(13) not null,                        -- 배송 고객 연락처
+     cusaddr varchar(300) not null,                      -- 배송 고객 주소
+     dnum varchar(100),                                  -- 배송 번호
+     dtel varchar(13),                                   -- 배송회사 전화번호
+     status integer default 0,                           -- 배송상태 - [0:배송전 | 1:배송중 | 2:도착 | 3:구매결정 | 4.구매취소]
+     sdate timestamp default current_timestamp,          -- 배송 등록일
+     rdate timestamp,                                    -- 배송 완료일
+     dcode varchar(30),                                  -- 화물코드
+     author varchar(20) not null                         -- 구매 고객 아이디
 );
 
 -- 결제(payment) 테이블 - O
 create table payment(
-    payno serial primary key,           -- 결제 번호 : 자동증가
-    cid varchar(20) not null,           -- 회원 아이디
-    prono integer not null,             -- 상품 번호
-    amount integer default 1,           -- 결제 수량
-    pmethod varchar(100),               -- 결제 방법
-    pcom varchar(100),                  -- 결제 대행사
-    cnum varchar(100),                  -- 결제카드(계좌)번호
-    payprice integer default 1000,      -- 결제 금액
-    dno varchar(100)                    -- 배송 번호
+    payno serial primary key,           			-- 결제 번호 : 자동증가
+    author varchar(20) not null,        			-- 회원 아이디
+    prono integer not null,             			-- 상품 번호
+    amount integer default 1,           			-- 결제 수량
+    pmethod varchar(10),                			-- 결제 방법 - [1:신용카드 | 2:체크카드 | 3:계좌이체]
+    pcom varchar(100),                  			-- 결제 대행사
+    pnum varchar(100),                  			-- 결제카드(계좌)번호
+    payprice integer default 1000,      			-- 결제 금액
+    status integer default 0,           			-- 배송상태 - [0:결제완료 | 1:결제완료 | 2:결제취소]
+    dno integer not null default 0,               	-- 배송 번호
+    resdate timestamp default current_timestamp     -- 결제 등록일
 );
+
+create view productpaylist as (select pay.payno as payno, pay.author as author, pro.prono as prono, pay.amount as amount, pay.pmethod as pmethod, pay.pcom as pcom, pay.pnum as pnum, pay.payprice as payprice, pay.status as paystatus, deli.dno as dno, pro.pname as pname, pro.thumbnail as thumbnail, deli.cusname as cusname, deli.custel as custel, deli.cusaddr as cusaddr, deli.dnum as dnum, deli.dtel as dtel, deli.status as dstatus, deli.sdate as sdate, deli.rdate as rdate, deli.dcode as dcode from payment pay, delivery deli, product pro where pay.prono = pro.prono and pay.dno = deli.dno);
 
 -- 장바구니(cart) 테이블 - O
 create table cart(
     cartno serial primary key,          -- 장바구니 번호 : 자동증가
-    cid varchar(20) not null,           -- 회원 아이디
+    author varchar(20) not null,        -- 회원 아이디
     prono integer not null,             -- 상품 번호
     amount integer not null             -- 상품 수량
 );
 
-create view cartList as (select p.prono as prono, p.pname as pname, p.price as price, p.thumbnail as thumbnail, sum(c.amount) as amount, c.cid as cid from product p, cart c where p.prono = c.prono group by c.cid, p.prono order by p.prono desc)
+create view cartList as (select p.prono as prono, p.pname as pname, p.price as price, p.thumbnail as thumbnail, sum(c.amount) as amount, c.author as author from product p, cart c where p.prono = c.prono group by c.author, p.prono order by p.prono desc);
 
 -- 리뷰(review) 테이블 - O
 create table review(
     rno serial primary key,                         -- 리뷰 번호 : 자동증가
     prono integer not null,                         -- 상품 번호
-    cid varchar(20) not null,                       -- 회원 아이디
+    author varchar(20) not null,                    -- 회원 아이디
     content varchar(500) not null,                  -- 리뷰 내역
-    star integer default 10,                        -- 리뷰 별점
+    star integer default 5,                         -- 리뷰 별점
     resdate timestamp default current_timestamp     -- 리뷰 등록일
 );
-
--- 아래 참조하면서 진행하기
--- 상품 목록
-select * from product order by prono;
--- 신상품 목록
-select * from product order by prono desc limit 5;
--- 베스트셀러 상품 목록
-select * from product where prono in (select prono from payment group by prono order by sum(amount) desc limit 5);
--- 카테고리별 신상품 목록
-select * from product where cateno=? order by prono desc limit 3;
--- 카테고리별 베스트셀러 상품 목록
-select * from product where pcode in (select prono from payment group by prono order by sum(amount)) and cateno=? limit 3;
-
--- 입고 처리 패턴
-insert into receive values (default, ?, ?, ?, default);
-insert into receive(prono, amount, rprice) values (?, ?, ?);
-
--- 출고 처리 패턴
-insert into payment values (default, ?, ?, ?, ?, ?, ?, ?, '');
-insert into serve values(default, ?, ?, ?, default);
-insert into delivery values (default, ?, ?, ?, ?, '','',default,default,'','');
-delete from cart where cartno=?;
-
--- 반품 처리 패턴(배송전이면 반품 가능)
-delete from payment where payno=?;
-insert into receive values (default, ?, ?, ?, default);
-delete from serve where sno=?;
-insert into cart values (default, ?, ?, ?);
-delete from delivery where payno=?;
-
--- 배송처리
-update delivery set pcom=?, ptel=?, pstate=1, sdate=current_timestamp, rdate=?, bcode=? where dno=?;
-
--- 배송 완료 처리
-update delivery set pstate=2 where dno=?;

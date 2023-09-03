@@ -25,3 +25,14 @@ body {font-size:.875rem;}
 .table th, .table td {font-size:unset;}
 .inBtn {min-width:unset;line-height:unset;font-size:unset;}
 .logo > img {width:auto;height:30px;margin:0 20px;}
+
+.table_title {text-align:left;}
+
+.pay_list {border-bottom:1px solid #333;padding:10px 0;box-sizing:border-box;}
+.pay_list:first-child {border-top:1px solid #333;}
+.pay_thumbnail {display:inline-block;vertical-align:middle;width:210px;}
+.pay_thumbnail img {height:200px;width:auto;}
+.pay_detail {display:inline-block;vertical-align:middle;width:calc(100% - 230px);margin-left:16px;text-align:left;}
+.pay_detail p {line-height:1;}
+.pay_detail .pay_title {font-size:2.5em;font-weight:900;}
+.pay_detail .pay_title span {border:1px solid #555;box-sizing:border-box;display:inline-block;padding:5px 10px;background-color:#ddd;vertical-align:middle;font-size:0.4em;font-weight:300;}

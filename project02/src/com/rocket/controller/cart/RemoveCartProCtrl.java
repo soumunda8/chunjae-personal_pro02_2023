@@ -4,14 +4,17 @@ import com.rocket.dto.Cart;
 import com.rocket.model.CartDAO;
 import org.json.JSONObject;
 
-import javax.servlet.*;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/addCartPro.do")
-public class AddCartProCtrl extends HttpServlet {
+@WebServlet("/removeCartPro.do")
+public class RemoveCartProCtrl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -21,15 +24,13 @@ public class AddCartProCtrl extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         boolean result = false;
-        String prono = request.getParameter("prono");
-        String amount = request.getParameter("amount");
+        int prono = Integer.parseInt(request.getParameter("prono"));
 
         Cart cart = new Cart();
         cart.setAuthor(sid);
-        cart.setProno(Integer.parseInt(prono));
-        cart.setAmount(Integer.parseInt(amount));
+        cart.setProno(prono);
         CartDAO dao = new CartDAO();
-        int cnt = dao.addCart(cart);
+        int cnt = dao.removeCart(cart);
         if(cnt > 0) {
             result = true;
         }

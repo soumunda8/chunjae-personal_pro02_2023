@@ -3,7 +3,7 @@ package com.rocket.dto;
 public class Cart {
 
     private int cartno;
-    private String cid;
+    private String author;
     private int prono;
     private int amount;
 
@@ -15,12 +15,12 @@ public class Cart {
         this.cartno = cartno;
     }
 
-    public String getCid() {
-        return cid;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setCid(String cid) {
-        this.cid = cid;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public int getProno() {
@@ -43,7 +43,7 @@ public class Cart {
     public String toString() {
         return "Cart{" +
                 "cartno=" + cartno +
-                ", cid='" + cid + '\'' +
+                ", author='" + author + '\'' +
                 ", prono=" + prono +
                 ", amount=" + amount +
                 '}';

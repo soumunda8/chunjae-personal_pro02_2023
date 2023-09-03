@@ -14,18 +14,9 @@ public class Main extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
-        String sid = (String) session.getAttribute("sid");
-
-        CategoryDAO headerCategoryDao = new CategoryDAO();
-        List<Category> categoryHeaderList = headerCategoryDao.getCategoryList("product");
-        request.setAttribute("categoryHeaderList", categoryHeaderList);
-
-        if(sid != null) {
-            CartListDAO headerCartListDao = new CartListDAO();
-            List<CartList> cartList = headerCartListDao.getCartList(sid);
-            request.setAttribute("cartList", cartList);
-        }
+        CategoryDAO headerMenuDao = new CategoryDAO();
+        List<Category> headerMenuCategoryList = headerMenuDao.getCategoryList("product");
+        request.setAttribute("headerMenuCategoryList", headerMenuCategoryList);
 
         ServletContext application = request.getServletContext();
         String realPath = request.getSession().getServletContext().getRealPath("/");
