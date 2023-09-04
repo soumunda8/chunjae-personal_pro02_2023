@@ -43,17 +43,15 @@
                         커뮤니티
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">공지사항</a></li>
-                        <li><a class="dropdown-item" href="#">묻고답하기</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">학습후기</a></li>
+                        <li><a class="dropdown-item" href="${path }/listNotice.do">공지사항</a></li>
+                        <li><a class="dropdown-item" href="${path }/listQna.do">문의하기</a></li>
                     </ul>
                 </li>
             </ul>
             <ul class="nav justify-content-end">
                 <c:if test="${!empty sid && sid ne 'admin' }">
                     <li><a class="nav-link" href="${path }/listCart.do"><i class="fas fa-cart-plus"></i></a></li>
-                    <button class="nav-link" type="button">찜목록</button>
+                    <%--<button class="nav-link" type="button">찜목록</button>--%>
                 </c:if>
             </ul>
         </div>

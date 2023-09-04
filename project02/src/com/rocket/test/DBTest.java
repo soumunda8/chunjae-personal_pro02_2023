@@ -19,7 +19,7 @@ public class DBTest {
             System.out.println("DB 연결 성공");
         }
 
-        String sql = "select * from custom";
+        String sql = "select * from member";
         try {
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();

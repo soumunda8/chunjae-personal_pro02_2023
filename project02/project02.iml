@@ -31,5 +31,6 @@
     <orderEntry type="library" name="cos" level="project" />
     <orderEntry type="library" name="crypto" level="project" />
     <orderEntry type="library" name="json-lib-2.0-jdk15" level="project" />
+    <orderEntry type="library" name="javax.mail.api" level="project" />
   </component>
 </module>

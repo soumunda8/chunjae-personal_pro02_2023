@@ -31,7 +31,7 @@ create table board(
 CREATE VIEW boardList AS (
 	SELECT 
 	b.bno AS bno, b.boardtype AS boardtype, b.title AS title, b.content AS content, b.author AS author,
-	b.resdate AS resdate, b.visited as visited, m.name AS name, c.cname AS categoryNm
+	b.resdate AS resdate, b.visited as visited, m.name AS name, c.cname AS categorynm
 	FROM board b, member m, category c WHERE b.author=m.id and b.boardtype = c.cateno order BY b.bno ASC
 );
 
@@ -56,7 +56,7 @@ CREATE TABLE qna(
 	qno serial primary key,	   						-- 문의 번호 : 자동증가
 	title varchar(100) not null,   					-- 문의 제목
 	content varchar(1000) not null,   				-- 문의 내용
-	author varchar(16) not null,   					-- 문의 작성자
+	author varchar(20) not null,   					-- 문의 작성자
 	resdate timestamp default current_timestamp,	-- 문의 등록일자
 	answer varchar(1000),   						-- 답변 내용
 	answeryn boolean default false, 				-- 답변 여부
@@ -140,7 +140,6 @@ create view receiveInventory as (select prono, sum(amount) as amount from receiv
 -- 배송(delivery) 테이블 - O
 create table delivery(
      dno serial primary key,                             -- 배송 번호 : 자동증가
-     author varchar(20) not null,                        -- 구매 고객 아이디
      cusname varchar(300) not null,                      -- 배송 고객 이름
      custel varchar(13) not null,                        -- 배송 고객 연락처
      cusaddr varchar(300) not null,                      -- 배송 고객 주소

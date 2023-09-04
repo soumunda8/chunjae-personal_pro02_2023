@@ -13,12 +13,17 @@ public interface DBConnect {
     final static String MEMBER_DELETE = "UPDATE member SET useyn = false WHERE id = ?";
 
     /* board */
-    final static String BOARD_SELECT_ALL = "SELECT * FROM boardList WHERE boardType = ? ORDER BY bno DESC";
+    /*final static String BOARD_SELECT_ALL = "SELECT * FROM boardList WHERE boardType = ? ORDER BY bno DESC";*/
+    final static String BOARD_SELECT_ALL = "SELECT * FROM board WHERE boardType = ? ORDER BY bno DESC";
     final static String BOARD_SELECT_ONE = "SELECT * FROM boardList WHERE bno = ?";
     final static String BOARD_INSERT = "INSERT INTO board VALUES(default, ?, ?, ?, ?, default, default)";
     final static String BOARD_UPDATE = "UPDATE board SET title = ?, content = ? WHERE bno = ?";
     final static String BOARD_UPDATE_VISITED = "UPDATE board SET visited = visited + 1 WHERE bno = ?";
     final static String BOARD_DELETE = "DELETE FROM board WHERE bno = ?";
+    final static String BOARD_COUNT = "select count(*) as cnt from board";
+    final static String BOARD_COUNT_TITLE = "select count(*) as cnt from board where title like ?";
+    final static String BOARD_COUNT_CONTENT = "select count(*) as cnt from board where content like ?";
+    final static String BOARD_COUNT_ALL = "select count(*) as cnt from board where title like ? or content like ?";
 
     /* qna */
     final static String QNA_SELECT_ALL = "SELECT * FROM qnaList ORDER BY qno DESC";
@@ -41,7 +46,7 @@ public interface DBConnect {
     final static String PRODUCT_SELECT_BEST = "SELECT * FROM productList WHERE useyn = true AND prono IN (SELECT prono FROM payment GROUP BY prono ORDER BY SUM(amount) DESC LIMIT 5)";
     final static String PRODUCT_SELECT_CATEGORY = "SELECT * FROM productList WHERE cateno = ? AND useyn = true";
     final static String PRODUCT_SELECT_CATEGORY_NEW = "SELECT * FROM productList WHERE cateno = ? AND useyn = true ORDER BY prono DESC LIMIT 3";
-    final static String PRODUCT_SELECT_CATEGORY__BEST = "SELECT * FROM productList WHERE useyn = true AND prono IN (SELECT prono FROM payment GROUP BY prono ORDER BY SUM(amount)) AND cateno = ? LIMIT 3";
+    final static String PRODUCT_SELECT_CATEGORY_BEST = "SELECT * FROM productList WHERE useyn = true AND prono IN (SELECT prono FROM payment GROUP BY prono ORDER BY SUM(amount)) AND cateno = ? LIMIT 3";
     final static String PRODUCT_SELECT_ONE = "SELECT * FROM productList WHERE prono = ?";
     final static String PRODUCT_SELECT_LAST = "SELECT * FROM productList WHERE useyn = true Limit 1";
     final static String PRODUCT_INSERT = "INSERT INTO product VALUES(default, ?, ?, ?, ?, ?, ?, ?, default, default)";

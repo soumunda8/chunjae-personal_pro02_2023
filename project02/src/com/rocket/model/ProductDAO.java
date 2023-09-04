@@ -200,7 +200,7 @@ public class ProductDAO {
         DBConnect con = new PostGreCon();
         try {
             conn = con.connect();
-            pstmt = conn.prepareStatement(DBConnect.PRODUCT_SELECT_CATEGORY__BEST);
+            pstmt = conn.prepareStatement(DBConnect.PRODUCT_SELECT_CATEGORY_BEST);
             pstmt.setString(1, cateno);
             rs = pstmt.executeQuery();
             while(rs.next()) {
