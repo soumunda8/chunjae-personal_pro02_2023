@@ -16,7 +16,7 @@ create table member(
     useyn boolean default true                    	-- 사용여부
 );
 
--- 게시판(board) 테이블 - X
+-- 게시판(board) 테이블 - O
 create table board(
 	bno serial primary key,							-- 게시글 번호 : 자동증가
 	boardtype varchar(20) not NULL,   				-- 게시글 타입 - 카테고리 테이블 연결 예정
@@ -31,11 +31,11 @@ create table board(
 CREATE VIEW boardList AS (
 	SELECT 
 	b.bno AS bno, b.boardtype AS boardtype, b.title AS title, b.content AS content, b.author AS author,
-	b.resdate AS resdate, b.cnt as cnt, m.name AS name, c.name AS categoryNm
-	FROM board b, member m, category c WHERE b.author=m.id and b.boardtype = c.cno order BY b.bno ASC
+	b.resdate AS resdate, b.visited as visited, m.name AS name, c.cname AS categoryNm
+	FROM board b, member m, category c WHERE b.author=m.id and b.boardtype = c.cateno order BY b.bno ASC
 );
 
--- 댓글(comment) 테이블 - X
+-- 댓글(comment) 테이블 - O
 CREATE TABLE comment(
    	cno serial primary key,									-- 댓글 번호 : 자동증가
 	author VARCHAR(20) not null,							-- 댓글 작성자
@@ -51,7 +51,7 @@ CREATE VIEW commentlist AS (
 );
 
 
--- 문의(qna) 테이블 - X
+-- 문의(qna) 테이블 - O
 CREATE TABLE qna(
 	qno serial primary key,	   						-- 문의 번호 : 자동증가
 	title varchar(100) not null,   					-- 문의 제목

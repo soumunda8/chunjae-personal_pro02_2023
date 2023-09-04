@@ -41,7 +41,7 @@
                 return false;
             }
             var total = $("#payTotal").val();
-            alert("총금액 : " + total);
+            //alert("총금액 : " + total);
             IMP.request_pay(
                 {
                     pg: "T5102001",

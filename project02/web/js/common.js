@@ -39,7 +39,6 @@ function updateCart(originAmount, prono, path, cnt) {
         $("#msg"+cnt).css("display", "none");
     }
 
-    //return pass;
     if(originAmount + amount > 0) {
         addCartPro(prono, amount, path);
     } else {
@@ -55,7 +54,6 @@ function addCartPro(prono, amount, path){
         dataType:"json",
         success:function(data){
             var idPass = data.result;
-            console.log(idPass);
             if(confirm("장바구니로 이동하시겠습니까?")) {
                 location.href = path + "/listCart.do";
             }
@@ -68,12 +66,7 @@ function addCartPro(prono, amount, path){
                 alert("장바구니를 확인해 주세요.");
                 $('#cartModal').modal('hide');
             }*/
-
-            console.log(request.status);
-            console.log("==============")
-            console.log(request.responseText);
-            console.log("==============")
-            console.log(error);
+            location.href = path + "/listCart.do";
         }
     });
 }
@@ -86,10 +79,10 @@ function removeCart(prono, path){
         dataType:"json",
         success:function(data){
             var idPass = data.result;
-            alert("성공");
+            //alert("성공");
         },
         error:function(request,status,error){
-            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            //alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         }
     });
 }

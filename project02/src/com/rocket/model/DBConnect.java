@@ -13,11 +13,26 @@ public interface DBConnect {
     final static String MEMBER_DELETE = "UPDATE member SET useyn = false WHERE id = ?";
 
     /* board */
-    final static String NOTICE_SELECT_ALL = "SELECT * FROM notice ORDER BY no DESC";
-    final static String NOTICE_SELECT_ONE = "SELECT * FROM notice WHERE no = ?";
-    final static String NOTICE_UPDATE = "UPDATE notice SET title = ?, content = ? WHERE no = ?";
-    final static String NOTICE_DELETE = "DELETE FROM notice WHERE no = ?";
-    final static String NOTICE_INSERT = "INSERT INTO notice(content, title) VALUES(?, ?)";
+    final static String BOARD_SELECT_ALL = "SELECT * FROM boardList WHERE boardType = ? ORDER BY bno DESC";
+    final static String BOARD_SELECT_ONE = "SELECT * FROM boardList WHERE bno = ?";
+    final static String BOARD_INSERT = "INSERT INTO board VALUES(default, ?, ?, ?, ?, default, default)";
+    final static String BOARD_UPDATE = "UPDATE board SET title = ?, content = ? WHERE bno = ?";
+    final static String BOARD_UPDATE_VISITED = "UPDATE board SET visited = visited + 1 WHERE bno = ?";
+    final static String BOARD_DELETE = "DELETE FROM board WHERE bno = ?";
+
+    /* qna */
+    final static String QNA_SELECT_ALL = "SELECT * FROM qnaList ORDER BY qno DESC";
+    final static String QNA_SELECT_MY = "SELECT * FROM qnaList WHERE author = ? ORDER BY qno DESC";
+    final static String QNA_SELECT_ONE = "SELECT * FROM qnaList WHERE qno = ?";
+    final static String QNA_INSERT = "INSERT INTO qna VALUES(default, ?, ?, ?, default, '', default, null)";
+    final static String QNA_UPDATE =  "UPDATE qna SET title = ?, content = ? WHERE qno = ?";
+    final static String QNA_UPDATE_ANSWER = "UPDATE qna SET answer = ?, answeryn = true, answerdate = CURRENT_TIMESTAMP WHERE = ?";
+    final static String QNA_DELETE = "DELETE FROM qna WHERE qno = ?";
+
+    /* comment */
+    final static String COMMENT_SELECT_ALL = "SELECT * FROM commentList WHERE bno = ? ORDER BY cno DESC";
+    final static String COMMENT_INSERT = "INSERT INTO comment VALUES(default, ?, ?, default, ?)";
+    final static String COMMENT_DELETE = "DELETE FROM comment WHERE cno = ?";
 
     /* product */
     final static String PRODUCT_SELECT_ADMIN_ALL = "SELECT * FROM productList ORDER BY useyn DESC";
